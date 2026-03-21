@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zscaler Traffic Steering & SIPA Infographic</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Teko:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #06090f;
+  --surface:   #0b1120;
+  --panel:     #0f1a2e;
+  --border:    #1c3050;
+  --blue:      #0ea5e9;
+  --cyan:      #22d3ee;
+  --green:     #10b981;
+  --orange:    #f97316;
+  --pink:      #e879f9;
+  --yellow:    #fbbf24;
+  --red:       #f43f5e;
+  --text:      #e2eaf5;
+  --muted:     #7a97b8;
+  --mono:      'Share Tech Mono', monospace;
+  --head:      'Teko', sans-serif;
+  --body:      'Rajdhani', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ── GRID NOISE BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(14,165,233,.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(14,165,233,.04) 40px);
+  pointer-events: none; z-index: 0;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid var(--cyan);
+  padding: 4px 14px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  animation: pulse-border 3s ease-in-out infinite;
+}
+@keyframes pulse-border {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,211,238,.3); }
+  50%      { box-shadow: 0 0 0 6px rgba(34,211,238,0); }
+}
+.hero h1 {
+  font-family: var(--head);
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(14,165,233,.4);
+}
+.hero h1 span { color: var(--blue); }
+.hero-sub {
+  margin-top: 12px;
+  font-size: 16px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* ── SECTION HEADER ── */
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 20px;
+}
+.sec-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  background: rgba(14,165,233,.1);
+  border: 1px solid rgba(14,165,233,.3);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.sec-title {
+  font-family: var(--head);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.sec-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border) 0%, transparent 100%); }
+
+/* ── TRAFFIC ARCHITECTURE FLOW ── */
+.arch-flow {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.arch-flow::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan), var(--green));
+}
+.arch-flow-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.flow-nodes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+}
+.node-icon {
+  width: 56px; height: 56px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  border: 1px solid;
+  position: relative;
+  transition: transform .2s;
+}
+.node-icon:hover { transform: scale(1.08); }
+.node-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: .5px;
+}
+.flow-arrow {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border);
+  font-size: 18px;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+}
+.flow-arrow.animated { animation: arrow-flow 1.5s ease-in-out infinite; }
+@keyframes arrow-flow {
+  0%,100% { color: var(--border); }
+  50%      { color: var(--blue); }
+}
+
+/* node colors */
+.n-user  { background: rgba(251,191,36,.08);  border-color: rgba(251,191,36,.4);  color: var(--yellow); }
+.n-zcc   { background: rgba(14,165,233,.1);   border-color: rgba(14,165,233,.4);  color: var(--blue);   }
+.n-zia   { background: rgba(34,211,238,.1);   border-color: rgba(34,211,238,.4);  color: var(--cyan);   }
+.n-zpa   { background: rgba(16,185,129,.1);   border-color: rgba(16,185,129,.4);  color: var(--green);  }
+.n-inet  { background: rgba(249,115,22,.08);  border-color: rgba(249,115,22,.3);  color: var(--orange); }
+.n-app   { background: rgba(232,121,249,.08); border-color: rgba(232,121,249,.3); color: var(--pink);   }
+
+/* ── COMPONENT CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+.card-head {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.card-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dot-pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .4; }
+}
+.card-label {
+  font-family: var(--head);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.card-sublabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: auto;
+  letter-spacing: 1px;
+}
+.card-body { padding: 18px 20px; }
+.card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: .5px;
+  border: 1px solid;
+}
+.kv-list { display: flex; flex-direction: column; gap: 6px; }
+.kv {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+}
+.kv-k {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  min-width: 110px;
+  letter-spacing: .5px;
+}
+.kv-v { color: var(--text); }
+
+/* color themes */
+.theme-blue  { --c: var(--blue);   }
+.theme-cyan  { --c: var(--cyan);   }
+.theme-green { --c: var(--green);  }
+
+.theme-blue  .card-head  { background: rgba(14,165,233,.06);  border-bottom-color: rgba(14,165,233,.2); }
+.theme-cyan  .card-head  { background: rgba(34,211,238,.06);  border-bottom-color: rgba(34,211,238,.2); }
+.theme-green .card-head  { background: rgba(16,185,129,.06);  border-bottom-color: rgba(16,185,129,.2); }
+
+.theme-blue  .card-dot   { background: var(--blue);  box-shadow: 0 0 8px var(--blue); }
+.theme-cyan  .card-dot   { background: var(--cyan);  box-shadow: 0 0 8px var(--cyan); }
+.theme-green .card-dot   { background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+.theme-blue  .card-label { color: var(--blue);  }
+.theme-cyan  .card-label { color: var(--cyan);  }
+.theme-green .card-label { color: var(--green); }
+
+.theme-blue  .tag  { color: var(--blue);  border-color: rgba(14,165,233,.3);  background: rgba(14,165,233,.08); }
+.theme-cyan  .tag  { color: var(--cyan);  border-color: rgba(34,211,238,.3);  background: rgba(34,211,238,.08); }
+.theme-green .tag  { color: var(--green); border-color: rgba(16,185,129,.3);  background: rgba(16,185,129,.08); }
+
+/* ── ZCC TRAFFIC STEERING METHODS ── */
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.method-card:hover { box-shadow: 0 0 24px rgba(14,165,233,.1); }
+.method-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+}
+.method-card.m1::after { background: var(--blue);   }
+.method-card.m2::after { background: var(--cyan);   }
+.method-card.m3::after { background: var(--green);  }
+.method-card.m4::after { background: var(--orange); }
+.method-card.m5::after { background: var(--pink);   }
+.method-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.method-title {
+  font-family: var(--head);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.m1 .method-title { color: var(--blue);   }
+.m2 .method-title { color: var(--cyan);   }
+.m3 .method-title { color: var(--green);  }
+.m4 .method-title { color: var(--orange); }
+.m5 .method-title { color: var(--pink);   }
+.method-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.method-note {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.m1 .method-note { color: var(--blue);   background: rgba(14,165,233,.08);  border: 1px solid rgba(14,165,233,.2);  }
+.m2 .method-note { color: var(--cyan);   background: rgba(34,211,238,.08);  border: 1px solid rgba(34,211,238,.2);  }
+.m3 .method-note { color: var(--green);  background: rgba(16,185,129,.08);  border: 1px solid rgba(16,185,129,.2);  }
+.m4 .method-note { color: var(--orange); background: rgba(249,115,22,.08);  border: 1px solid rgba(249,115,22,.2);  }
+.m5 .method-note { color: var(--pink);   background: rgba(232,121,249,.08); border: 1px solid rgba(232,121,249,.2); }
+
+/* ── ZIA INSPECTION PIPELINE ── */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.pipe-stage {
+  flex: 1;
+  min-width: 110px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-right: none;
+  padding: 16px 12px;
+  text-align: center;
+  position: relative;
+  transition: background .2s;
+}
+.pipe-stage:hover { background: var(--panel); }
+.pipe-stage:last-child { border-right: 1px solid var(--border); border-radius: 0 6px 6px 0; }
+.pipe-stage:first-child { border-radius: 6px 0 0 6px; }
+.pipe-stage::after {
+  content: '▶';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--border);
+  font-size: 12px;
+  z-index: 2;
+}
+.pipe-stage:last-child::after { display: none; }
+.pipe-icon { font-size: 22px; margin-bottom: 8px; }
+.pipe-name {
+  font-family: var(--head);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.pipe-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ── ZPA POLICY TABLE ── */
+.zpa-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+.zpa-table th {
+  background: rgba(16,185,129,.08);
+  border: 1px solid rgba(16,185,129,.2);
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green);
+  text-align: left;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.zpa-table td {
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  transition: background .15s;
+}
+.zpa-table tr:hover td { background: var(--panel); }
+.zpa-table td:first-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+}
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.badge-g { color: var(--green);  border-color: rgba(16,185,129,.4);  background: rgba(16,185,129,.08); }
+.badge-b { color: var(--blue);   border-color: rgba(14,165,233,.4);  background: rgba(14,165,233,.08); }
+.badge-o { color: var(--orange); border-color: rgba(249,115,22,.4);  background: rgba(249,115,22,.08); }
+.badge-r { color: var(--red);    border-color: rgba(244,63,94,.4);   background: rgba(244,63,94,.08);  }
+
+/* ── SIPA SECTION ── */
+.sipa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+@media (max-width: 640px) { .sipa-grid { grid-template-columns: 1fr; } }
+
+.sipa-card {
+  background: var(--panel);
+  border: 1px solid rgba(244,63,94,.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sipa-card-head {
+  background: rgba(244,63,94,.07);
+  border-bottom: 1px solid rgba(244,63,94,.15);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sipa-icon { font-size: 20px; }
+.sipa-title {
+  font-family: var(--head);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: .5px;
+}
+.sipa-body { padding: 16px 18px; }
+.sipa-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.sipa-bullet {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  margin-top: 6px;
+  opacity: .7;
+}
+
+/* ── SIPA OVERVIEW BOX ── */
+.sipa-overview {
+  background: var(--surface);
+  border: 1px solid rgba(244,63,94,.25);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.sipa-overview-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.sipa-overview p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.sipa-overview strong { color: var(--text); }
+
+/* ── ZIA vs ZPA COMPARISON ── */
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+.compare-table th {
+  padding: 12px 16px;
+  font-family: var(--head);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.compare-table th:nth-child(1) { background: var(--surface); color: var(--muted); font-family: var(--mono); font-size: 10px; }
+.compare-table th:nth-child(2) { background: rgba(34,211,238,.08); color: var(--cyan); border-color: rgba(34,211,238,.2); }
+.compare-table th:nth-child(3) { background: rgba(16,185,129,.08); color: var(--green); border-color: rgba(16,185,129,.2); }
+.compare-table td {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  background: var(--surface);
+  transition: background .15s;
+}
+.compare-table tr:hover td { background: var(--panel); }
+.compare-table td:nth-child(1) { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.compare-table td:nth-child(2) { color: var(--cyan); }
+.compare-table td:nth-child(3) { color: var(--green); }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 60px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-brand { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <div class="hero-badge">Network Security Architecture</div>
+    <h1>Zscaler <span>Traffic Steering</span><br>&amp; SIPA</h1>
+    <p class="hero-sub">ZIA · ZCC · ZPA · Security Inspection Proxy Architecture</p>
+  </div>
+
+  <!-- ── SECTION 1: ARCHITECTURE OVERVIEW ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">01</div>
+    <div class="sec-title">Traffic Flow Architecture</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="arch-flow fade-in">
+    <div class="arch-flow-title">// end-to-end steering path</div>
+    <div class="flow-nodes">
+      <div class="flow-node">
+        <div class="node-icon n-user">👤</div>
+        <div class="node-label">USER<br>DEVICE</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon n-zcc">🔗</div>
+        <div class="node-label">ZCC<br>AGENT</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon n-zia">🛡</div>
+        <div class="node-label">ZIA<br>CLOUD</div>
+      </div>
+      <div class="flow-arrow" style="color:#1c3050">⋯</div>
+      <div class="flow-node">
+        <div class="node-icon n-inet">🌐</div>
+        <div class="node-label">INTERNET<br>/ SaaS</div>
+      </div>
+    </div>
+    <div style="margin:24px 0 8px; display:flex; align-items:center; gap:12px;">
+      <div style="flex:1; height:1px; background:var(--border)"></div>
+      <span style="font-family:var(--mono); font-size:10px; color:var(--muted)">PRIVATE APP PATH</span>
+      <div style="flex:1; height:1px; background:var(--border)"></div>
+    </div>
+    <div class="flow-nodes">
+      <div class="flow-node">
+        <div class="node-icon n-user">👤</div>
+        <div class="node-label">USER<br>DEVICE</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon n-zcc">🔗</div>
+        <div class="node-label">ZCC<br>AGENT</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon n-zpa">🔒</div>
+        <div class="node-label">ZPA<br>CLOUD</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon n-app">🖥</div>
+        <div class="node-label">PRIVATE<br>APP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: ZCC ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">02</div>
+    <div class="sec-title">ZCC — Zscaler Client Connector</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="cards-grid fade-in">
+    <div class="card theme-blue">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">ZCC Overview</div>
+        <div class="card-sublabel">AGENT</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Lightweight endpoint agent installed on user devices (Windows, macOS, iOS, Android). Acts as the traffic interception and steering engine — the brain that decides which traffic goes to ZIA vs ZPA vs bypassed.</div>
+        <div class="tag-row">
+          <span class="tag">Win / Mac / Mobile</span>
+          <span class="tag">Always-On</span>
+          <span class="tag">Zero Trust NAC</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">TUNNELS</div><div class="kv-v">GRE, IPSec, HTTPS</div></div>
+          <div class="kv"><div class="kv-k">PAC FILE</div><div class="kv-v">Auto-provisioned via ZCC</div></div>
+          <div class="kv"><div class="kv-k">POSTURE</div><div class="kv-v">Device trust + compliance check</div></div>
+          <div class="kv"><div class="kv-k">SPLIT TUNNEL</div><div class="kv-v">Configurable per app/FQDN/IP</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">Forwarding Profile</div>
+        <div class="card-sublabel">POLICY</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Forwarding profiles define which traffic is steered to ZIA (internet/SaaS), which goes to ZPA (private apps), and what gets bypassed. Applied per App Profile / Location.</div>
+        <div class="tag-row">
+          <span class="tag">ZIA Forward</span>
+          <span class="tag">ZPA Tunnel</span>
+          <span class="tag">Bypass</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">ZIA TRAFFIC</div><div class="kv-v">Port 80/443, DNS, web</div></div>
+          <div class="kv"><div class="kv-k">ZPA TRAFFIC</div><div class="kv-v">App Segments (FQDN/IP)</div></div>
+          <div class="kv"><div class="kv-k">BYPASS</div><div class="kv-v">Internal IPs, trusted FQDN</div></div>
+          <div class="kv"><div class="kv-k">FALLBACK</div><div class="kv-v">Direct if ZEN unreachable</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZCC Steering Methods -->
+  <div class="fade-in" style="margin-bottom:8px;">
+    <div style="font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">// ZCC Traffic Steering Methods</div>
+  </div>
+  <div class="methods-grid fade-in">
+    <div class="method-card m1">
+      <div class="method-num">METHOD 01</div>
+      <div class="method-title">Tunnel Mode</div>
+      <div class="method-desc">All traffic from the device is encapsulated in an IPSec/GRE tunnel to the nearest Zscaler Enforcement Node (ZEN). Full inspection applies regardless of destination port.</div>
+      <div class="method-note">ZIA default path</div>
+    </div>
+    <div class="method-card m2">
+      <div class="method-num">METHOD 02</div>
+      <div class="method-title">PAC File</div>
+      <div class="method-desc">ZCC auto-provisions a Proxy Auto-Config file. Browser/OS-level proxy redirection to ZIA cloud proxy. Works well for HTTP/HTTPS-only traffic in legacy environments.</div>
+      <div class="method-note">HTTP/HTTPS only</div>
+    </div>
+    <div class="method-card m3">
+      <div class="method-num">METHOD 03</div>
+      <div class="method-title">Z-App Tunnel</div>
+      <div class="method-desc">ZPA-specific lightweight per-app tunnel. Traffic to private application segments is micro-tunneled to ZPA Broker Cloud, connecting via App Connector on-prem or in cloud.</div>
+      <div class="method-note">Private app access</div>
+    </div>
+    <div class="method-card m4">
+      <div class="method-num">METHOD 04</div>
+      <div class="method-title">Split Tunneling</div>
+      <div class="method-desc">Selective steering — only matched destinations (FQDN, IP range, app category) go to ZIA/ZPA. Remaining traffic exits locally. Reduces latency for trusted internal traffic.</div>
+      <div class="method-note">Performance tuning</div>
+    </div>
+    <div class="method-card m5">
+      <div class="method-num">METHOD 05</div>
+      <div class="method-title">Bypass Rules</div>
+      <div class="method-desc">Explicit bypass list for traffic that must not transit Zscaler — e.g., local printers, DHCP, internal monitoring agents, or legacy protocols that cannot tolerate proxy interruption.</div>
+      <div class="method-note">Operational exclusions</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: ZIA ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">03</div>
+    <div class="sec-title">ZIA — Internet Access Inspection</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- ZIA Pipeline -->
+  <div class="fade-in" style="margin-bottom:12px;">
+    <div style="font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase;">// ZIA Inspection Pipeline — Traffic passes each stage sequentially</div>
+  </div>
+  <div class="pipeline fade-in">
+    <div class="pipe-stage">
+      <div class="pipe-icon">🔌</div>
+      <div class="pipe-name">ZEN Recv</div>
+      <div class="pipe-desc">Traffic arrives at nearest ZEN via tunnel</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">🔐</div>
+      <div class="pipe-name">SSL Inspect</div>
+      <div class="pipe-desc">TLS terminated &amp; re-encrypted (MITM)</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">🌐</div>
+      <div class="pipe-name">URL Filter</div>
+      <div class="pipe-desc">Category + custom URL policy</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">🦠</div>
+      <div class="pipe-name">AV / AMP</div>
+      <div class="pipe-desc">Inline malware &amp; sandbox</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">🚦</div>
+      <div class="pipe-name">CASB</div>
+      <div class="pipe-desc">Shadow IT &amp; cloud app control</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">📋</div>
+      <div class="pipe-name">DLP</div>
+      <div class="pipe-desc">Sensitive data egress prevention</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">🕵️</div>
+      <div class="pipe-name">FW / IPS</div>
+      <div class="pipe-desc">Non-HTTP app control + signatures</div>
+    </div>
+    <div class="pipe-stage">
+      <div class="pipe-icon">✅</div>
+      <div class="pipe-name">Allow/Block</div>
+      <div class="pipe-desc">Final policy verdict + log</div>
+    </div>
+  </div>
+
+  <div class="cards-grid fade-in">
+    <div class="card theme-cyan">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">Location Forwarding</div>
+        <div class="card-sublabel">NETWORK LEVEL</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Branch / datacenter traffic forwarded without ZCC via GRE or IPSec tunnel from on-prem router/firewall directly to ZEN. Ideal for server traffic and branch networks.</div>
+        <div class="tag-row">
+          <span class="tag">GRE Tunnel</span>
+          <span class="tag">IPSec</span>
+          <span class="tag">PAC File</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">SUB-LOCATION</div><div class="kv-v">IP-based identification of source</div></div>
+          <div class="kv"><div class="kv-k">AUTH</div><div class="kv-v">SAML, Kerberos, LDAP, IP</div></div>
+          <div class="kv"><div class="kv-k">XFF</div><div class="kv-v">X-Forwarded-For for user tracking</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card theme-cyan">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">ZIA Policy Engine</div>
+        <div class="card-sublabel">POLICY LAYERS</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Policies are evaluated top-down per-session. Each policy type has its own rule hierarchy. Rules can be scoped by user, group, location, device posture, or time-of-day.</div>
+        <div class="tag-row">
+          <span class="tag">User/Group</span>
+          <span class="tag">Location-aware</span>
+          <span class="tag">Time-based</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">FIREWALL</div><div class="kv-v">App-ID, port, protocol rules</div></div>
+          <div class="kv"><div class="kv-k">URL POLICY</div><div class="kv-v">Category, custom URL, keywords</div></div>
+          <div class="kv"><div class="kv-k">DLP ENGINE</div><div class="kv-v">Pattern match, EDM, IDM, OCR</div></div>
+          <div class="kv"><div class="kv-k">BANDWIDTH</div><div class="kv-v">QoS classes per app category</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: ZPA ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">04</div>
+    <div class="sec-title">ZPA — Private Application Access</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="cards-grid fade-in">
+    <div class="card theme-green">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">Core Components</div>
+        <div class="card-sublabel">ARCHITECTURE</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">ZPA is a broker-based zero-trust access model. No inbound firewall rules required — App Connectors initiate outbound-only connections to ZPA cloud Broker.</div>
+        <div class="tag-row">
+          <span class="tag">Never VPN</span>
+          <span class="tag">App-Level Access</span>
+          <span class="tag">Outbound-Only</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">APP CONNECTOR</div><div class="kv-v">On-prem/cloud proxy to apps</div></div>
+          <div class="kv"><div class="kv-k">ZPA BROKER</div><div class="kv-v">Policy engine + session broker</div></div>
+          <div class="kv"><div class="kv-k">APP SEGMENT</div><div class="kv-v">FQDN/IP + port definition</div></div>
+          <div class="kv"><div class="kv-k">SEGMENT GRP</div><div class="kv-v">Logical grouping of app segments</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card theme-green">
+      <div class="card-head">
+        <div class="card-dot"></div>
+        <div class="card-label">Access Policy</div>
+        <div class="card-sublabel">ZERO TRUST</div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Access policies define who can reach which App Segments. Evaluated per-connection with continuous posture checks. Supports SAML, SCIM, IdP federation.</div>
+        <div class="tag-row">
+          <span class="tag">Continuous Auth</span>
+          <span class="tag">SAML/SCIM</span>
+          <span class="tag">Posture Check</span>
+        </div>
+        <div class="kv-list">
+          <div class="kv"><div class="kv-k">POLICY TYPES</div><div class="kv-v">Access, Timeout, Inspection</div></div>
+          <div class="kv"><div class="kv-k">CONDITIONS</div><div class="kv-v">IdP group, device cert, posture</div></div>
+          <div class="kv"><div class="kv-k">MICROTUNNEL</div><div class="kv-v">Per-app TLS 1.3 tunnel</div></div>
+          <div class="kv"><div class="kv-k">ZITI SDK</div><div class="kv-v">Agentless via browser access</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZPA Access Modes Table -->
+  <div class="fade-in">
+    <div style="font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">// ZPA Access Modes</div>
+    <table class="zpa-table">
+      <thead>
+        <tr>
+          <th>MODE</th>
+          <th>MECHANISM</th>
+          <th>USE CASE</th>
+          <th>AGENT REQUIRED</th>
+          <th>CLOUD CONNECTOR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Client-based</td>
+          <td>ZCC + Z-Tunnel 2.0</td>
+          <td>Managed endpoints — corporate users</td>
+          <td><span class="badge badge-g">YES</span></td>
+          <td><span class="badge badge-b">OPTIONAL</span></td>
+        </tr>
+        <tr>
+          <td>Browser Access</td>
+          <td>Clientless reverse proxy</td>
+          <td>BYOD, contractors, 3rd parties</td>
+          <td><span class="badge badge-r">NO</span></td>
+          <td><span class="badge badge-b">YES</span></td>
+        </tr>
+        <tr>
+          <td>Machine Tunnel</td>
+          <td>System-level tunnel pre-login</td>
+          <td>Domain join, patching, MDM</td>
+          <td><span class="badge badge-g">YES</span></td>
+          <td><span class="badge badge-r">NO</span></td>
+        </tr>
+        <tr>
+          <td>Server-to-Server</td>
+          <td>App Connector ↔ Broker</td>
+          <td>App-to-app micro-segmentation</td>
+          <td><span class="badge badge-r">NO</span></td>
+          <td><span class="badge badge-g">YES</span></td>
+        </tr>
+        <tr>
+          <td>ZIA + ZPA Combined</td>
+          <td>Dual-tunnel via ZCC</td>
+          <td>Full SASE deployment</td>
+          <td><span class="badge badge-g">YES</span></td>
+          <td><span class="badge badge-b">OPTIONAL</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── SECTION 5: ZIA vs ZPA COMPARISON ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">05</div>
+    <div class="sec-title">ZIA vs ZPA — Side by Side</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <table class="compare-table fade-in">
+    <thead>
+      <tr>
+        <th>ATTRIBUTE</th>
+        <th>ZIA</th>
+        <th>ZPA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>PURPOSE</td><td>Secure internet &amp; SaaS access</td><td>Secure private app access</td></tr>
+      <tr><td>TRAFFIC TYPE</td><td>HTTP/S, DNS, non-web (FW)</td><td>Any TCP/UDP to private apps</td></tr>
+      <tr><td>ARCHITECTURE</td><td>Forward proxy + FW</td><td>Broker / reverse proxy</td></tr>
+      <tr><td>INBOUND RULES</td><td>Not required</td><td>Not required (outbound-only)</td></tr>
+      <tr><td>AUTHENTICATION</td><td>SAML, Kerberos, IP</td><td>SAML + device cert + posture</td></tr>
+      <tr><td>SSL INSPECTION</td><td>Full inline SSL inspection</td><td>TLS 1.3 per-app microtunnel</td></tr>
+      <tr><td>BYPASS OPTION</td><td>Yes — bypass rules in ZCC</td><td>Yes — non-ZPA traffic exits ZIA</td></tr>
+      <tr><td>REPLACES</td><td>SWG, NGFW, CASB, DLP</td><td>VPN, MPLS, SDWAN for app access</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── SECTION 6: SIPA ── -->
+  <div class="sec-header fade-in">
+    <div class="sec-num">06</div>
+    <div class="sec-title">SIPA — Source IP Anchoring</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="sipa-overview fade-in">
+    <div class="sipa-overview-label">// WHAT IS SIPA</div>
+    <p>
+      <strong>SIPA (Source IP Anchoring)</strong> is a ZPA feature that allows a user's traffic to egress from 
+      a <strong>fixed, predictable source IP address</strong> — typically a corporate static IP — even when the user is 
+      remote. Traffic is tunneled via ZPA to an <strong>App Connector deployed on-prem or in a cloud region</strong>, 
+      and exits from that connector's IP. This allows destination systems (SaaS, partner portals, legacy apps) that 
+      enforce <strong>IP allowlisting</strong> to continue functioning for remote users — without needing a traditional VPN.
+    </p>
+  </div>
+
+  <!-- SIPA Flow Diagram -->
+  <div class="arch-flow fade-in" style="border-color:rgba(244,63,94,.2);">
+    <div class="arch-flow-title" style="color:var(--red);">// SIPA Traffic Flow — Remote User with Source IP Anchoring</div>
+    <div class="flow-nodes">
+      <div class="flow-node">
+        <div class="node-icon" style="background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.4);color:var(--yellow);">👤</div>
+        <div class="node-label">REMOTE<br>USER</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon" style="background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.4);color:var(--blue);">🔗</div>
+        <div class="node-label">ZCC<br>AGENT</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4);color:var(--green);">🔒</div>
+        <div class="node-label">ZPA<br>BROKER</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon" style="background:rgba(244,63,94,.08);border-color:rgba(244,63,94,.3);color:var(--red);">📍</div>
+        <div class="node-label">APP<br>CONNECTOR</div>
+      </div>
+      <div class="flow-arrow animated">›</div>
+      <div class="flow-node">
+        <div class="node-icon" style="background:rgba(232,121,249,.08);border-color:rgba(232,121,249,.3);color:var(--pink);">🌐</div>
+        <div class="node-label">SaaS / PARTNER<br>(sees corp IP)</div>
+      </div>
+    </div>
+    <div style="margin-top:18px; text-align:center;">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--red);background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.2);padding:5px 14px;border-radius:3px;">
+        ⚓ Destination sees App Connector's static egress IP — not user's home/ISP IP
+      </span>
+    </div>
+  </div>
+
+  <div class="sipa-grid fade-in">
+    <div class="sipa-card">
+      <div class="sipa-card-head">
+        <div class="sipa-icon">🎯</div>
+        <div class="sipa-title">Why SIPA Is Needed</div>
+      </div>
+      <div class="sipa-body">
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">IP Allowlisting:</strong> SaaS apps, partner portals, and banking systems that restrict access to known corporate IPs</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Legacy app constraints:</strong> On-prem or hosted apps that cannot be converted to identity-based auth</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Compliance requirements:</strong> Regulatory mandates that traffic must originate from specific geographies or IP ranges</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">VPN elimination:</strong> Remove split-tunnel VPN while preserving the static source IP behavior remote users depend on</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Audit trails:</strong> Systems that log source IPs for audit — SIPA ensures consistent identifiable egress</div></div>
+      </div>
+    </div>
+
+    <div class="sipa-card">
+      <div class="sipa-card-head">
+        <div class="sipa-icon">⚙️</div>
+        <div class="sipa-title">How SIPA Works</div>
+      </div>
+      <div class="sipa-body">
+        <div class="sipa-item"><div class="sipa-bullet"></div><div>ZCC on the endpoint matches traffic destined for SIPA-configured domains/IPs</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div>Traffic is tunneled over ZPA micro-tunnel to a designated <strong style="color:var(--text)">App Connector Group</strong></div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div>App Connector forwards traffic to the internet/SaaS destination using <strong style="color:var(--text)">its own static egress IP</strong></div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div>Return traffic flows back through the same App Connector → ZPA Broker → ZCC to the user</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div>No inbound ports required on the App Connector host — all connections are outbound-initiated</div></div>
+      </div>
+    </div>
+
+    <div class="sipa-card">
+      <div class="sipa-card-head">
+        <div class="sipa-icon">🏗</div>
+        <div class="sipa-title">SIPA Architecture Components</div>
+      </div>
+      <div class="sipa-body">
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">App Connector:</strong> Deployed in DC or cloud VPC with a static public IP (NAT gateway or Elastic IP on AWS/Azure)</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">App Segment (SIPA type):</strong> Defined with destination FQDN/IP of the target SaaS or application</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Server Group:</strong> Linked to the App Connector Group responsible for egress</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Access Policy:</strong> ZPA access policy scoped to user group that needs anchored IP access</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">No App Connector needed at app side</strong> — connector acts as an egress proxy, not a gateway to internal app</div></div>
+      </div>
+    </div>
+
+    <div class="sipa-card">
+      <div class="sipa-card-head">
+        <div class="sipa-icon">⚠️</div>
+        <div class="sipa-title">SIPA Considerations & Limits</div>
+      </div>
+      <div class="sipa-body">
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Not for all traffic:</strong> SIPA is selective — only configured App Segments use anchoring; rest uses ZIA</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Connector sizing:</strong> High-volume SIPA flows (video, large file transfers) require adequately sized connector VMs</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">Geo-anchoring:</strong> If compliance requires country-specific egress, deploy connectors in the right region/cloud</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">HA / redundancy:</strong> Deploy multiple App Connectors per group for failover — ZPA load-balances automatically</div></div>
+        <div class="sipa-item"><div class="sipa-bullet"></div><div><strong style="color:var(--text)">SIPA ≠ ZIA bypass:</strong> If ZIA SSL inspection is also enabled, traffic may still pass through ZEN before the connector</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIPA vs VPN vs Direct -->
+  <div class="fade-in">
+    <div style="font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">// SIPA vs Traditional Approaches for Static Egress IP</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>ATTRIBUTE</th>
+          <th>SIPA (ZPA)</th>
+          <th>Split-Tunnel VPN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>STATIC EGRESS IP</td><td>Yes — App Connector IP</td><td>Yes — VPN concentrator IP</td></tr>
+        <tr><td>INBOUND FIREWALL RULES</td><td>None required</td><td>Required (VPN ports)</td></tr>
+        <tr><td>USER EXPERIENCE</td><td>Transparent, always-on</td><td>Manual connect / split config</td></tr>
+        <tr><td>ZERO TRUST AUTH</td><td>Yes — per-app, continuous</td><td>No — network-level access</td></tr>
+        <tr><td>SCALABILITY</td><td>Cloud-elastic connectors</td><td>Appliance-bound throughput</td></tr>
+        <tr><td>MULTI-REGION EGRESS</td><td>Deploy connectors per region</td><td>Multiple VPN endpoints needed</td></tr>
+        <tr><td>VISIBILITY / LOGS</td><td>ZPA session logs + ZIA logs</td><td>VPN logs only</td></tr>
+        <tr><td>COMPLEXITY</td><td>Low — policy-driven</td><td>High — routing, split config</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer fade-in">
+    <div class="footer-brand">ZSCALER ARCHITECTURE REFERENCE · 2025</div>
+    <div class="footer-tags">
+      <div class="footer-tag">ZIA</div>
+      <div class="footer-tag">ZCC</div>
+      <div class="footer-tag">ZPA</div>
+      <div class="footer-tag">SIPA</div>
+      <div class="footer-tag">SASE</div>
+      <div class="footer-tag">ZERO TRUST</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

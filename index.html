@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venkateshbabu Premnath — Network & Security Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0a1628; --navy-mid:#112240; --navy-light:#1e3a5f; --steel:#2c5282;
+    --accent:#c8922a; --accent-light:#e8b84b; --white:#f8f9fb;
+    --gray:#8a9bb5; --gray-light:#c5cfe0; --line:rgba(200,146,42,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3.5rem;background:rgba(10,22,40,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);letter-spacing:.04em}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-light);text-decoration:none;transition:color .25s}
+  .nav-links a:hover{color:var(--accent)}
+
+  /* HERO */
+  #hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 5rem;gap:4rem;overflow:hidden;z-index:1}
+  .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;opacity:0;animation:fadeUp .8s .2s forwards}
+  .hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,4.5vw,4rem);font-weight:700;line-height:1.12;margin-bottom:.6rem;opacity:0;animation:fadeUp .8s .35s forwards}
+  .hero-title{font-size:1rem;font-weight:300;color:var(--gray);margin-bottom:2rem;opacity:0;animation:fadeUp .8s .5s forwards}
+  .hero-desc{font-size:.95rem;line-height:1.85;color:var(--gray-light);max-width:520px;margin-bottom:2.8rem;opacity:0;animation:fadeUp .8s .65s forwards}
+  .hero-cta{display:flex;gap:1rem;opacity:0;animation:fadeUp .8s .8s forwards}
+  .btn-primary{background:var(--accent);color:var(--navy);padding:.85rem 2rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .25s}
+  .btn-primary:hover{background:var(--accent-light);transform:translateY(-2px)}
+  .btn-outline{border:1px solid var(--gray);color:var(--gray-light);padding:.85rem 2rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:all .25s}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:rgba(200,146,42,.15);border:1px solid rgba(200,146,42,.2);opacity:0;animation:fadeIn 1s 1s forwards}
+  .stat-box{background:var(--navy-mid);padding:2.2rem;transition:background .3s}
+  .stat-box:hover{background:var(--navy-light)}
+  .stat-number{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.4rem}
+  .stat-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+
+  /* SECTIONS */
+  section{position:relative;z-index:1;padding:6rem 4rem}
+  .section-header{display:flex;align-items:center;gap:1.5rem;margin-bottom:3.5rem}
+  .section-tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+  .section-line{height:1px;flex:1;background:linear-gradient(to right,rgba(200,146,42,.4),transparent)}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:600;max-width:600px}
+
+  /* INFOGRAPHIC BOX */
+  .ig-box{background:var(--navy-mid);border:1px solid rgba(200,146,42,.15);padding:2.2rem;margin-top:3.5rem;position:relative;overflow:hidden}
+  .ig-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),transparent)}
+  .ig-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.4rem}
+  .ig-box svg{width:100%;display:block}
+
+  /* EXPERTISE */
+  #expertise{background:var(--navy-mid)}
+  .expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(200,146,42,.1)}
+  .expertise-card{background:var(--navy);padding:2.4rem;border-left:3px solid transparent;transition:all .3s}
+  .expertise-card:hover{border-left-color:var(--accent);background:var(--navy-mid);transform:translateY(-3px)}
+  .expertise-icon{width:44px;height:44px;margin-bottom:1.4rem}
+  .expertise-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:.7rem}
+  .expertise-desc{font-size:.86rem;line-height:1.75;color:var(--gray)}
+
+  /* STACK */
+  #stack{background:var(--navy)}
+  .stack-categories{display:flex;flex-direction:column;gap:2.5rem}
+  .stack-category h3{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+  .stack-tags{display:flex;flex-wrap:wrap;gap:.7rem}
+  .tag{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.06em;color:var(--gray-light);background:var(--navy-mid);border:1px solid rgba(255,255,255,.07);padding:.5rem 1rem;transition:all .2s;cursor:default}
+  .tag:hover{border-color:var(--accent);color:var(--accent);background:rgba(200,146,42,.06)}
+
+  /* EXPERIENCE */
+  #experience{background:var(--navy-mid)}
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),transparent)}
+  .timeline-item{position:relative;padding:0 0 3rem 2.5rem}
+  .timeline-item::before{content:'';position:absolute;left:-4px;top:6px;width:8px;height:8px;background:var(--accent);border-radius:50%}
+  .timeline-meta{display:flex;align-items:baseline;gap:1rem;margin-bottom:.5rem}
+  .timeline-period{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;color:var(--accent)}
+  .timeline-company{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gray)}
+  .timeline-role{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin-bottom:.9rem}
+  .timeline-points{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .timeline-points li{font-size:.88rem;line-height:1.7;color:var(--gray);padding-left:1.2rem;position:relative}
+  .timeline-points li::before{content:'—';position:absolute;left:0;color:var(--accent);opacity:.6}
+
+  /* CERTIFICATIONS */
+  #certifications{background:var(--navy)}
+  .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  .cert-card{background:var(--navy-mid);border:1px solid rgba(200,146,42,.15);padding:1.8rem 1.5rem;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+  .cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s}
+  .cert-card:hover::before{transform:scaleX(1)}
+  .cert-card:hover{border-color:rgba(200,146,42,.4);transform:translateY(-4px)}
+  .cert-vendor{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+  .cert-name{font-size:.88rem;font-weight:500;color:var(--gray-light);line-height:1.5}
+
+  /* ROADMAP SECTION */
+  #roadmap{background:var(--navy-mid)}
+
+  /* ARCHITECTURE SECTION */
+  #architecture{background:var(--navy)}
+
+  /* BLOG */
+  #blog{background:var(--navy-mid)}
+  .blog-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:1.5px;background:rgba(200,146,42,.1);margin-bottom:2.5rem}
+  .blog-card{background:var(--navy);padding:2.4rem;display:flex;flex-direction:column;transition:background .3s;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+  .blog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .blog-card:hover{background:var(--navy-mid)}
+  .blog-card:hover::after{transform:scaleX(1)}
+  .blog-card.featured{background:var(--navy-mid)}
+  .blog-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .blog-title{font-family:'Playfair Display',serif;font-weight:600;line-height:1.35;margin-bottom:1rem;flex:1}
+  .blog-card.featured .blog-title{font-size:1.35rem}
+  .blog-card:not(.featured) .blog-title{font-size:1.05rem}
+  .blog-excerpt{font-size:.85rem;line-height:1.75;color:var(--gray);margin-bottom:1.5rem;flex:1}
+  .blog-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .blog-date{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--gray)}
+  .blog-read{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--accent)}
+  .blog-cta{text-align:center}
+
+  /* CONTACT */
+  #contact{background:var(--navy-mid);text-align:center;padding:7rem 4rem}
+  .contact-tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
+  .contact-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1rem}
+  .contact-sub{font-size:.97rem;color:var(--gray);max-width:480px;margin:0 auto 2.5rem;line-height:1.75}
+  .contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+  .contact-link{display:flex;align-items:center;gap:.6rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--gray-light);text-decoration:none;padding:.8rem 1.5rem;border:1px solid rgba(255,255,255,.08);transition:all .25s}
+  .contact-link:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* FOOTER */
+  footer{background:var(--navy);padding:1.8rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);position:relative;z-index:1}
+  .footer-copy,.footer-location{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--gray);display:flex;align-items:center;gap:.4rem}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){#hero{grid-template-columns:1fr}.expertise-grid{grid-template-columns:1fr 1fr}.cert-grid{grid-template-columns:1fr 1fr}.blog-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}section,#hero,footer{padding-left:1.5rem;padding-right:1.5rem}.expertise-grid,.cert-grid,.blog-grid{grid-template-columns:1fr}.hero-stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">VP</div>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#stack">Tech Stack</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Network &amp; Security Architecture</p>
+    <h1 class="hero-name">Venkateshbabu<br>Premnath</h1>
+    <p class="hero-title">Cloud Security Architecture Lead · 15+ Years Enterprise Experience</p>
+    <p class="hero-desc">Results-driven architect specialising in data centre transformation, cloud migration, and security modernisation. Expert in designing secure, scalable, future-ready architectures aligned with business continuity and compliance requirements.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-number">15+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat-box"><div class="stat-number">3</div><div class="stat-label">Cloud Platforms</div></div>
+    <div class="stat-box"><div class="stat-number">DC</div><div class="stat-label">Migration Lead</div></div>
+    <div class="stat-box"><div class="stat-number">E2E</div><div class="stat-label">Security Architect</div></div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-header reveal"><span class="section-tag">01 / Core Strengths</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:2.5rem">Areas of Deep Expertise</h2>
+  <div class="expertise-grid">
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="4" y="16" width="36" height="12" rx="2" stroke="#c8922a" stroke-width="1.5"/><circle cx="12" cy="22" r="2" fill="#c8922a"/><line x1="20" y1="22" x2="36" y2="22" stroke="#c8922a" stroke-width="1.5" opacity=".4"/><line x1="22" y1="4" x2="22" y2="16" stroke="#c8922a" stroke-width="1.5" opacity=".4"/><line x1="22" y1="28" x2="22" y2="40" stroke="#c8922a" stroke-width="1.5" opacity=".4"/></svg></div><h3 class="expertise-name">Data Centre Migration</h3><p class="expertise-desc">End-to-end DC migrations including Lift-and-Shift, AVS, NSX. Re-IP programmes with zero-downtime objectives.</p></div>
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M8 28 Q22 8 36 28" stroke="#c8922a" stroke-width="1.5" fill="none"/><circle cx="22" cy="32" r="4" stroke="#c8922a" stroke-width="1.5"/><line x1="14" y1="36" x2="30" y2="36" stroke="#c8922a" stroke-width="1.5" opacity=".4"/></svg></div><h3 class="expertise-name">Cloud Security &amp; Connectivity</h3><p class="expertise-desc">Hybrid-cloud deployments on Azure vWAN, OCI. Fortinet NGFW, Zscaler ZPA, zero-trust design.</p></div>
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="6" y="6" width="14" height="14" rx="1" stroke="#c8922a" stroke-width="1.5"/><rect x="24" y="6" width="14" height="14" rx="1" stroke="#c8922a" stroke-width="1.5" opacity=".5"/><rect x="6" y="24" width="14" height="14" rx="1" stroke="#c8922a" stroke-width="1.5" opacity=".5"/><rect x="24" y="24" width="14" height="14" rx="1" stroke="#c8922a" stroke-width="1.5"/><line x1="20" y1="13" x2="24" y2="13" stroke="#c8922a" stroke-width="1.5"/><line x1="13" y1="20" x2="13" y2="24" stroke="#c8922a" stroke-width="1.5"/><line x1="31" y1="20" x2="31" y2="24" stroke="#c8922a" stroke-width="1.5"/><line x1="20" y1="31" x2="24" y2="31" stroke="#c8922a" stroke-width="1.5"/></svg></div><h3 class="expertise-name">Firewall &amp; LB Migrations</h3><p class="expertise-desc">Palo Alto, Fortinet, F5, AVI migrations. Policy rationalisation, rule optimisation, traffic engineering.</p></div>
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M22 6 L38 16 L38 28 L22 38 L6 28 L6 16 Z" stroke="#c8922a" stroke-width="1.5" fill="none"/><path d="M22 14 L30 19 L30 25 L22 30 L14 25 L14 19 Z" stroke="#c8922a" stroke-width="1" fill="none" opacity=".45"/></svg></div><h3 class="expertise-name">Architecture Governance</h3><p class="expertise-desc">Risk and compliance alignment. HLD/LLD documentation, architecture review boards, security-by-design.</p></div>
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="14" r="6" stroke="#c8922a" stroke-width="1.5"/><path d="M10 38 C10 30 34 30 34 38" stroke="#c8922a" stroke-width="1.5" fill="none"/><line x1="30" y1="18" x2="38" y2="14" stroke="#c8922a" stroke-width="1.5" opacity=".5"/><circle cx="38" cy="12" r="3" stroke="#c8922a" stroke-width="1.5" opacity=".5"/></svg></div><h3 class="expertise-name">Leadership &amp; Transformation</h3><p class="expertise-desc">Cross-functional T&amp;T programmes. Mentoring security, cloud, and network teams through transformations.</p></div>
+    <div class="expertise-card reveal"><div class="expertise-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="8" y="24" width="8" height="14" stroke="#c8922a" stroke-width="1.5"/><rect x="18" y="16" width="8" height="22" stroke="#c8922a" stroke-width="1.5"/><rect x="28" y="8" width="8" height="30" stroke="#c8922a" stroke-width="1.5"/><line x1="6" y1="38" x2="38" y2="38" stroke="#c8922a" stroke-width="1" opacity=".4"/></svg></div><h3 class="expertise-name">Infrastructure as Code</h3><p class="expertise-desc">Terraform automation across Azure, OCI, hybrid. Repeatable, auditable DevSecOps deployments.</p></div>
+  </div>
+
+  <!-- INFOGRAPHIC 1: COMPETENCY RADAR -->
+  <div class="ig-box reveal">
+    <div class="ig-label">Infographic 01 — Competency Radar · 15-Year Expertise Map</div>
+    <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="rg1" cx="50%" cy="50%"><stop offset="0%" stop-color="#c8922a" stop-opacity=".5"/><stop offset="100%" stop-color="#2c5282" stop-opacity=".15"/></radialGradient>
+      </defs>
+      <g transform="translate(240,200)">
+        <!-- Rings -->
+        <polygon points="0,-160 138.6,-80 138.6,80 0,160 -138.6,80 -138.6,-80" fill="none" stroke="rgba(200,146,42,.07)" stroke-width="1"/>
+        <polygon points="0,-120 103.9,-60 103.9,60 0,120 -103.9,60 -103.9,-60" fill="none" stroke="rgba(200,146,42,.09)" stroke-width="1"/>
+        <polygon points="0,-80 69.3,-40 69.3,40 0,80 -69.3,40 -69.3,-40" fill="none" stroke="rgba(200,146,42,.11)" stroke-width="1"/>
+        <polygon points="0,-40 34.6,-20 34.6,20 0,40 -34.6,20 -34.6,-20" fill="none" stroke="rgba(200,146,42,.14)" stroke-width="1"/>
+        <!-- Axes -->
+        <line x1="0" y1="0" x2="0" y2="-160" stroke="rgba(200,146,42,.13)"/>
+        <line x1="0" y1="0" x2="138.6" y2="-80" stroke="rgba(200,146,42,.13)"/>
+        <line x1="0" y1="0" x2="138.6" y2="80" stroke="rgba(200,146,42,.13)"/>
+        <line x1="0" y1="0" x2="0" y2="160" stroke="rgba(200,146,42,.13)"/>
+        <line x1="0" y1="0" x2="-138.6" y2="80" stroke="rgba(200,146,42,.13)"/>
+        <line x1="0" y1="0" x2="-138.6" y2="-80" stroke="rgba(200,146,42,.13)"/>
+        <!-- Data: N95%, NE90%, SE92%, S80%, SW78%, NW85% -->
+        <polygon class="radar-poly" points="0,-152 117,-58.5 117,58.5 0,128 -99.6,57.5 -99.6,-57.5" fill="url(#rg1)" stroke="#c8922a" stroke-width="2" opacity="0">
+          <animate attributeName="opacity" from="0" to="1" dur="1s" begin="0.3s" fill="freeze"/>
+        </polygon>
+        <circle cx="0" cy="-152" r="5" fill="#c8922a"/><circle cx="117" cy="-58.5" r="5" fill="#c8922a"/>
+        <circle cx="117" cy="58.5" r="5" fill="#c8922a"/><circle cx="0" cy="128" r="5" fill="#c8922a"/>
+        <circle cx="-99.6" cy="57.5" r="5" fill="#c8922a"/><circle cx="-99.6" cy="-57.5" r="5" fill="#c8922a"/>
+        <!-- Labels -->
+        <text x="0" y="-170" text-anchor="middle" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">Network Security · 95%</text>
+        <text x="154" y="-64" text-anchor="start" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">Cloud Arch · 90%</text>
+        <text x="154" y="74" text-anchor="start" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">Security Design · 92%</text>
+        <text x="0" y="186" text-anchor="middle" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">Leadership · 80%</text>
+        <text x="-154" y="74" text-anchor="end" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">Infra as Code · 78%</text>
+        <text x="-154" y="-64" text-anchor="end" fill="#f8f9fb" font-family="DM Mono,monospace" font-size="11">App Delivery · 85%</text>
+        <!-- Ring labels -->
+        <text x="4" y="-42" fill="rgba(200,146,42,.5)" font-family="DM Mono,monospace" font-size="8">25%</text>
+        <text x="4" y="-82" fill="rgba(200,146,42,.5)" font-family="DM Mono,monospace" font-size="8">50%</text>
+        <text x="4" y="-122" fill="rgba(200,146,42,.5)" font-family="DM Mono,monospace" font-size="8">75%</text>
+      </g>
+      <!-- Legend panel -->
+      <g transform="translate(468,80)">
+        <text x="0" y="0" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="13" font-weight="500">Competency Levels</text>
+        <rect x="0" y="16" width="14" height="14" fill="url(#rg1)" stroke="#c8922a" stroke-width="1"/>
+        <text x="22" y="27" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">Current Proficiency</text>
+        <line x1="0" y1="46" x2="200" y2="46" stroke="rgba(200,146,42,.15)" stroke-width="1"/>
+        <text x="0" y="64" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">Based on 15+ years of</text>
+        <text x="0" y="78" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">enterprise deployments</text>
+        <text x="0" y="92" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">across Azure · OCI · Multi-cloud</text>
+        <line x1="0" y1="108" x2="200" y2="108" stroke="rgba(200,146,42,.15)" stroke-width="1"/>
+        <text x="0" y="126" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12" font-weight="500">Growth Track</text>
+        <text x="0" y="142" fill="#c8922a" font-family="DM Mono,monospace" font-size="10">→ CISSP: Leadership 95%</text>
+        <text x="0" y="156" fill="#c8922a" font-family="DM Mono,monospace" font-size="10">→ CISM: Governance 90%</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="section-header reveal"><span class="section-tag">02 / Technology</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:3rem">Technology Stack</h2>
+  <div class="stack-categories">
+    <div class="stack-category reveal"><h3>Cloud Platforms &amp; Networking</h3><div class="stack-tags"><span class="tag">Microsoft Azure</span><span class="tag">Azure vWAN</span><span class="tag">Azure ExpressRoute</span><span class="tag">OCI</span><span class="tag">AWS</span><span class="tag">VMware NSX</span><span class="tag">Cisco Meraki</span><span class="tag">BGP / OSPF</span><span class="tag">SD-WAN</span><span class="tag">MPLS</span></div></div>
+    <div class="stack-category reveal"><h3>Security &amp; Firewall</h3><div class="stack-tags"><span class="tag">Palo Alto NGFW</span><span class="tag">Fortinet FortiGate</span><span class="tag">Zscaler ZPA / ZIA</span><span class="tag">Zero Trust Architecture</span><span class="tag">Prisma Access</span><span class="tag">CrowdStrike</span><span class="tag">Cisco ASA</span><span class="tag">SIEM / SOC</span><span class="tag">IAM / PAM</span></div></div>
+    <div class="stack-category reveal"><h3>Load Balancing &amp; Application Delivery</h3><div class="stack-tags"><span class="tag">F5 BIG-IP</span><span class="tag">AVI / NSX ALB</span><span class="tag">GSLB</span><span class="tag">WAF</span><span class="tag">SSL Offload</span><span class="tag">iRules / Profiles</span><span class="tag">Azure Load Balancer</span><span class="tag">Application Gateway</span></div></div>
+    <div class="stack-category reveal"><h3>Automation &amp; DevSecOps</h3><div class="stack-tags"><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Python</span><span class="tag">PowerShell</span><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">REST APIs</span><span class="tag">JSON / YAML</span></div></div>
+  </div>
+
+  <!-- INFOGRAPHIC 2: PROFICIENCY BARS -->
+  <div class="ig-box reveal">
+    <div class="ig-label">Infographic 02 — Technology Proficiency Index</div>
+    <svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c8922a"/><stop offset="100%" stop-color="#e8b84b"/></linearGradient>
+        <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2c5282"/><stop offset="100%" stop-color="#4a90d9"/></linearGradient>
+      </defs>
+      <!-- Left col - Security -->
+      <text x="20" y="24" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" letter-spacing="2">SECURITY &amp; FIREWALL</text>
+      <text x="20" y="50" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Palo Alto NGFW</text>
+      <rect x="20" y="56" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="56" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="346"/>
+      <text x="386" y="65" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">96%</text>
+      <text x="20" y="86" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Fortinet FortiGate</text>
+      <rect x="20" y="92" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="92" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="338"/>
+      <text x="386" y="101" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">94%</text>
+      <text x="20" y="122" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Zscaler ZPA / ZIA</text>
+      <rect x="20" y="128" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="128" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="331"/>
+      <text x="386" y="137" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">92%</text>
+      <text x="20" y="158" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Zero Trust Architecture</text>
+      <rect x="20" y="164" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="164" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="324"/>
+      <text x="386" y="173" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">90%</text>
+      <line x1="20" y1="192" x2="400" y2="192" stroke="rgba(200,146,42,.1)"/>
+      <text x="20" y="212" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9" letter-spacing="2">CLOUD &amp; NETWORKING</text>
+      <text x="20" y="238" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Azure / vWAN</text>
+      <rect x="20" y="244" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="244" width="0" height="7" fill="url(#bg2)" rx="3" class="bar" data-w="342"/>
+      <text x="386" y="253" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">95%</text>
+      <text x="20" y="274" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">BGP / OSPF Routing</text>
+      <rect x="20" y="280" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="280" width="0" height="7" fill="url(#bg2)" rx="3" class="bar" data-w="349"/>
+      <text x="386" y="289" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">97%</text>
+      <text x="20" y="310" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">VMware NSX</text>
+      <rect x="20" y="316" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="20" y="316" width="0" height="7" fill="url(#bg2)" rx="3" class="bar" data-w="317"/>
+      <text x="386" y="325" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">88%</text>
+      <!-- Divider -->
+      <line x1="430" y1="16" x2="430" y2="344" stroke="rgba(200,146,42,.1)"/>
+      <!-- Right col -->
+      <text x="450" y="24" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" letter-spacing="2">LOAD BALANCING &amp; AUTOMATION</text>
+      <text x="450" y="50" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">F5 BIG-IP / AVI</text>
+      <rect x="450" y="56" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="450" y="56" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="335"/>
+      <text x="816" y="65" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">93%</text>
+      <text x="450" y="86" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">WAF / GSLB</text>
+      <rect x="450" y="92" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="450" y="92" width="0" height="7" fill="url(#bg1)" rx="3" class="bar" data-w="317"/>
+      <text x="816" y="101" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">88%</text>
+      <text x="450" y="122" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Terraform / IaC</text>
+      <rect x="450" y="128" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="450" y="128" width="0" height="7" fill="url(#bg2)" rx="3" class="bar" data-w="306"/>
+      <text x="816" y="137" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">85%</text>
+      <text x="450" y="158" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Python / Automation</text>
+      <rect x="450" y="164" width="360" height="7" fill="rgba(255,255,255,.05)" rx="3"/>
+      <rect x="450" y="164" width="0" height="7" fill="url(#bg2)" rx="3" class="bar" data-w="288"/>
+      <text x="816" y="173" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">80%</text>
+      <line x1="450" y1="192" x2="820" y2="192" stroke="rgba(200,146,42,.1)"/>
+      <text x="450" y="212" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" letter-spacing="2">OVERALL MASTERY</text>
+      <text x="450" y="238" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Network Architecture</text>
+      <rect x="450" y="244" width="360" height="9" fill="rgba(255,255,255,.05)" rx="4"/>
+      <rect x="450" y="244" width="0" height="9" fill="url(#bg1)" rx="4" class="bar" data-w="349"/>
+      <text x="816" y="255" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">97%</text>
+      <text x="450" y="280" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Cloud Security</text>
+      <rect x="450" y="286" width="360" height="9" fill="rgba(255,255,255,.05)" rx="4"/>
+      <rect x="450" y="286" width="0" height="9" fill="url(#bg1)" rx="4" class="bar" data-w="338"/>
+      <text x="816" y="297" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">94%</text>
+      <text x="450" y="316" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12">Migration Leadership</text>
+      <rect x="450" y="322" width="360" height="9" fill="rgba(255,255,255,.05)" rx="4"/>
+      <rect x="450" y="322" width="0" height="9" fill="url(#bg2)" rx="4" class="bar" data-w="324"/>
+      <text x="816" y="333" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9">90%</text>
+    </svg>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal"><span class="section-tag">03 / Experience</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:3rem">Career Journey</h2>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-meta"><span class="timeline-period">2020 — Present</span><span class="timeline-company">· Enterprise / Global Environments</span></div>
+      <div class="timeline-role">Network &amp; Security Architecture Lead</div>
+      <ul class="timeline-points">
+        <li>Led end-to-end data centre migration programmes including Lift-and-Shift, AVS, and VMware NSX transformations</li>
+        <li>Designed secure hybrid-cloud architectures on Azure and OCI using vWAN, ExpressRoute, Fortinet NGFW, and Zscaler ZPA</li>
+        <li>Governed HLD/LLD documentation and architecture review processes ensuring compliance, risk alignment, and business continuity</li>
+        <li>Mentored cross-functional network, cloud, and security teams through large-scale T&amp;T programmes</li>
+      </ul>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-meta"><span class="timeline-period">2016 — 2020</span><span class="timeline-company">· Multi-Vendor Environments</span></div>
+      <div class="timeline-role">Senior Network Security Engineer</div>
+      <ul class="timeline-points">
+        <li>Executed firewall and load balancer migrations across Palo Alto, Fortinet, F5, and AVI for financial and healthcare customers</li>
+        <li>Designed BGP/OSPF routing topologies for DC interconnects and SD-WAN rollouts across distributed enterprise branches</li>
+        <li>Implemented zero-trust network access frameworks and microsegmentation using VMware NSX and Zscaler</li>
+      </ul>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-meta"><span class="timeline-period">2010 — 2016</span><span class="timeline-company">· Enterprise Infrastructure</span></div>
+      <div class="timeline-role">Network Engineer — Infrastructure &amp; Security</div>
+      <ul class="timeline-points">
+        <li>Deployed and managed Cisco routing and switching infrastructure across multi-site enterprise networks</li>
+        <li>Managed F5 BIG-IP load balancer estate including SSL offloading, iRules, and GSLB configurations</li>
+        <li>Supported firewall policy management, VPN deployments, and perimeter security for regulated environments</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- INFOGRAPHIC 3: CAREER ARC TIMELINE -->
+  <div class="ig-box reveal">
+    <div class="ig-label">Infographic 03 — 15-Year Career Arc &amp; Trajectory</div>
+    <svg viewBox="0 0 860 210" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="60%" stop-color="#2c5282"/><stop offset="100%" stop-color="#c8922a"/></linearGradient></defs>
+      <line x1="50" y1="105" x2="810" y2="105" stroke="url(#tg)" stroke-width="3"/>
+      <!-- Milestones -->
+      <circle cx="50" cy="105" r="8" fill="#1e3a5f" stroke="#c8922a" stroke-width="2"/>
+      <text x="50" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2010</text>
+      <text x="50" y="80" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Network Eng.</text>
+      <circle cx="200" cy="105" r="6" fill="#1e3a5f" stroke="#8a9bb5" stroke-width="1.5"/>
+      <text x="200" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2013</text>
+      <text x="200" y="85" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">F5 &amp; Firewall</text>
+      <text x="200" y="97" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Specialist</text>
+      <circle cx="380" cy="105" r="8" fill="#2c5282" stroke="#c8922a" stroke-width="2"/>
+      <text x="380" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2016</text>
+      <text x="380" y="80" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Sr. Network Security</text>
+      <text x="380" y="93" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Engineer</text>
+      <circle cx="540" cy="105" r="6" fill="#2c5282" stroke="#8a9bb5" stroke-width="1.5"/>
+      <text x="540" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2018</text>
+      <text x="540" y="85" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Cloud Migration</text>
+      <text x="540" y="97" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Lead</text>
+      <circle cx="680" cy="105" r="9" fill="#c8922a" stroke="#e8b84b" stroke-width="2"/>
+      <text x="680" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2020</text>
+      <text x="680" y="78" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">Architecture Lead</text>
+      <text x="680" y="91" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Network &amp; Security</text>
+      <circle cx="810" cy="105" r="11" fill="#c8922a" stroke="#e8b84b" stroke-width="2.5"/>
+      <circle cx="810" cy="105" r="5" fill="#e8b84b"/>
+      <text x="810" y="135" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="10" font-weight="600">NOW</text>
+      <text x="810" y="72" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="13" font-weight="700">CISSP Track</text>
+      <text x="810" y="85" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">→ Leadership</text>
+      <!-- Phase bands -->
+      <rect x="50" y="152" width="330" height="16" fill="rgba(44,82,130,.2)" rx="2"/>
+      <text x="215" y="163" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">FOUNDATION PHASE</text>
+      <rect x="380" y="152" width="300" height="16" fill="rgba(44,82,130,.35)" rx="2"/>
+      <text x="530" y="163" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">SPECIALISATION PHASE</text>
+      <rect x="680" y="152" width="130" height="16" fill="rgba(200,146,42,.3)" rx="2"/>
+      <text x="745" y="163" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">LEADERSHIP PHASE</text>
+      <rect x="50" y="178" width="760" height="18" fill="rgba(200,146,42,.04)" rx="2"/>
+      <text x="430" y="191" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Consistent growth from hands-on engineer → cross-platform specialist → enterprise architecture lead</text>
+    </svg>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-header reveal"><span class="section-tag">04 / Credentials</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:2.5rem">Certifications &amp; Credentials</h2>
+  <div class="cert-grid">
+    <div class="cert-card reveal"><div class="cert-vendor">Palo Alto</div><div class="cert-name">PCNSE — Network Security Engineer</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">Fortinet</div><div class="cert-name">NSE Certification — Network Security Expert</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">Microsoft</div><div class="cert-name">Azure Network Engineer Associate (AZ-700)</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">Zscaler</div><div class="cert-name">ZCCA-IA — Zscaler Cloud &amp; AI Associate</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">F5</div><div class="cert-name">F5 Certified BIG-IP Administrator</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">Cisco</div><div class="cert-name">CCNP — Certified Network Professional</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">VMware</div><div class="cert-name">VCP-NV — VMware NSX Data Centre</div></div>
+    <div class="cert-card reveal"><div class="cert-vendor">HashiCorp</div><div class="cert-name">Terraform Associate — Infrastructure Automation</div></div>
+  </div>
+</section>
+
+<!-- CERT ROADMAP -->
+<section id="roadmap">
+  <div class="section-header reveal"><span class="section-tag">04b / Roadmap</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:2.5rem">Certification Roadmap — Leadership Track</h2>
+
+  <!-- INFOGRAPHIC 4: CERT ROADMAP -->
+  <div class="ig-box reveal">
+    <div class="ig-label">Infographic 04 — 18-Month Certification Roadmap to CISO Track</div>
+    <svg viewBox="0 0 860 290" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="trackGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(44,82,130,.5)"/><stop offset="100%" stop-color="rgba(200,146,42,.5)"/>
+        </linearGradient>
+      </defs>
+      <!-- Track -->
+      <rect x="30" y="118" width="800" height="46" fill="url(#trackGrad)" rx="23"/>
+      <rect x="30" y="118" width="800" height="46" fill="rgba(10,22,40,.5)" rx="23"/>
+      <!-- AZ-500 M0-3 -->
+      <rect x="32" y="120" width="128" height="42" fill="rgba(74,144,217,.8)" rx="21"/>
+      <text x="96" y="138" text-anchor="middle" fill="#fff" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">AZ-500</text>
+      <text x="96" y="153" text-anchor="middle" fill="rgba(255,255,255,.8)" font-family="DM Mono,monospace" font-size="9">M1–3</text>
+      <text x="96" y="96" text-anchor="middle" fill="#4a90d9" font-family="DM Sans,sans-serif" font-size="11">Azure Security</text>
+      <text x="96" y="108" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">~₹14K · Quick Win</text>
+      <!-- CISSP M3-9 -->
+      <rect x="162" y="120" width="258" height="42" fill="rgba(200,146,42,.9)" rx="21"/>
+      <text x="291" y="137" text-anchor="middle" fill="#0a1628" font-family="DM Sans,sans-serif" font-size="15" font-weight="700">CISSP</text>
+      <text x="291" y="152" text-anchor="middle" fill="rgba(10,22,40,.8)" font-family="DM Mono,monospace" font-size="9">Month 3 – 9</text>
+      <text x="291" y="96" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="13" font-weight="700">★ Priority #1</text>
+      <text x="291" y="108" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">~₹62K · Global Gold Standard</text>
+      <!-- CISM M10-14 -->
+      <rect x="422" y="120" width="172" height="42" fill="rgba(44,82,130,.9)" rx="21"/>
+      <text x="508" y="137" text-anchor="middle" fill="#fff" font-family="DM Sans,sans-serif" font-size="14" font-weight="700">CISM</text>
+      <text x="508" y="152" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="9">Month 10 – 14</text>
+      <text x="508" y="96" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11">Security Management</text>
+      <text x="508" y="108" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">~₹47K · CISO Track</text>
+      <!-- CCSP M14-18 -->
+      <rect x="596" y="120" width="146" height="42" fill="rgba(30,58,95,.9)" rx="21" stroke="rgba(200,146,42,.5)" stroke-width="1.5"/>
+      <text x="669" y="137" text-anchor="middle" fill="#fff" font-family="DM Sans,sans-serif" font-size="13" font-weight="700">CCSP</text>
+      <text x="669" y="152" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="9">Month 14 – 18</text>
+      <text x="669" y="96" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11">Cloud Security</text>
+      <text x="669" y="108" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">~₹49K · ISC²</text>
+      <!-- Beyond -->
+      <rect x="744" y="120" width="84" height="42" fill="rgba(200,146,42,.15)" rx="21" stroke="rgba(200,146,42,.3)" stroke-width="1" stroke-dasharray="5,3"/>
+      <text x="786" y="137" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">TOGAF</text>
+      <text x="786" y="152" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">+ CRISC</text>
+      <text x="786" y="96" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Beyond M18</text>
+      <!-- Month markers -->
+      <g font-family="DM Mono,monospace" font-size="9" fill="#8a9bb5" text-anchor="middle">
+        <text x="32" y="176">M0</text><text x="162" y="176">M3</text><text x="291" y="176">M6</text>
+        <text x="422" y="176">M9</text><text x="508" y="176">M12</text><text x="596" y="176">M14</text>
+        <text x="744" y="176">M18</text>
+      </g>
+      <line x1="30" y1="168" x2="830" y2="168" stroke="rgba(200,146,42,.08)"/>
+      <!-- Career labels -->
+      <text x="96"  y="210" text-anchor="middle" fill="#4a90d9" font-family="DM Sans,sans-serif" font-size="11">Azure SE</text>
+      <text x="291" y="210" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="12" font-weight="600">Security Architect</text>
+      <text x="508" y="210" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="600">Security Leader</text>
+      <text x="669" y="210" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="600">CISO-Track Ready</text>
+      <text x="786" y="210" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="11">Principal Arch.</text>
+      <!-- Summary bar -->
+      <rect x="30" y="236" width="800" height="38" fill="rgba(200,146,42,.05)" rx="4"/>
+      <text x="430" y="252" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">TOTAL INVESTMENT</text>
+      <text x="430" y="266" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="10">~₹1.72 Lakh over 18 months  ·  Returns: 20–30% salary uplift  ·  CISO / Principal Architect role access</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-header reveal"><span class="section-tag">04c / Architecture</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:2.5rem">Reference Architecture — Azure Hybrid + Zero Trust</h2>
+
+  <!-- INFOGRAPHIC 5: ARCHITECTURE DIAGRAM -->
+  <div class="ig-box reveal">
+    <div class="ig-label">Infographic 05 — Enterprise Reference Architecture: Azure vWAN · Fortinet NGFW · Zscaler ZPA · On-Prem DC · OCI</div>
+    <svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arO" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(200,146,42,.8)"/></marker>
+        <marker id="arB" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(74,144,217,.8)"/></marker>
+        <linearGradient id="azGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#112240"/></linearGradient>
+      </defs>
+
+      <!-- USERS block -->
+      <rect x="8" y="70" width="118" height="340" rx="5" fill="rgba(44,82,130,.1)" stroke="rgba(44,82,130,.3)"/>
+      <text x="67" y="62" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">USERS</text>
+      <rect x="18" y="82" width="98" height="46" rx="4" fill="rgba(44,82,130,.25)" stroke="rgba(44,82,130,.4)"/>
+      <text x="67" y="101" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">Remote Users</text>
+      <text x="67" y="114" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">ZPA Client</text>
+      <text x="67" y="124" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Connector</text>
+      <rect x="18" y="140" width="98" height="46" rx="4" fill="rgba(44,82,130,.2)" stroke="rgba(44,82,130,.35)"/>
+      <text x="67" y="159" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">Office Users</text>
+      <text x="67" y="172" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Meraki SD-WAN</text>
+      <text x="67" y="182" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">+ ZIA</text>
+      <rect x="18" y="198" width="98" height="46" rx="4" fill="rgba(44,82,130,.12)" stroke="rgba(44,82,130,.2)" stroke-dasharray="3,2"/>
+      <text x="67" y="217" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Partners /</text>
+      <text x="67" y="229" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Contractors</text>
+      <text x="67" y="240" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Browser Access</text>
+      <rect x="18" y="256" width="98" height="38" rx="4" fill="rgba(0,120,212,.2)" stroke="rgba(0,120,212,.4)"/>
+      <text x="67" y="274" text-anchor="middle" fill="#4a90d9" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">Entra ID</text>
+      <text x="67" y="286" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">IdP / MFA / CA</text>
+      <rect x="18" y="306" width="98" height="38" rx="4" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.2)" stroke-dasharray="3,2"/>
+      <text x="67" y="324" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Intune MDM</text>
+      <text x="67" y="336" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Device Posture</text>
+
+      <!-- ZSCALER block -->
+      <rect x="142" y="52" width="126" height="376" rx="5" fill="rgba(200,146,42,.05)" stroke="rgba(200,146,42,.35)" stroke-width="1.5"/>
+      <text x="205" y="44" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">ZSCALER CLOUD</text>
+      <rect x="152" y="64" width="106" height="40" rx="4" fill="rgba(200,146,42,.2)" stroke="rgba(200,146,42,.4)"/>
+      <text x="205" y="82" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">ZPA</text>
+      <text x="205" y="97" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Zero Trust Access</text>
+      <rect x="152" y="116" width="106" height="40" rx="4" fill="rgba(200,146,42,.12)" stroke="rgba(200,146,42,.25)"/>
+      <text x="205" y="134" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">ZIA</text>
+      <text x="205" y="149" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Internet Security</text>
+      <rect x="152" y="168" width="106" height="32" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.25)"/>
+      <text x="205" y="183" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Policy Engine</text>
+      <text x="205" y="195" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">SAML / SCIM</text>
+      <rect x="152" y="212" width="106" height="32" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.25)"/>
+      <text x="205" y="227" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">SSL Inspection</text>
+      <text x="205" y="239" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">DLP / CASB</text>
+      <rect x="152" y="256" width="106" height="32" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.25)"/>
+      <text x="205" y="271" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">App Connectors</text>
+      <text x="205" y="283" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Outbound Only</text>
+      <rect x="152" y="300" width="106" height="32" rx="3" fill="rgba(30,58,95,.3)" stroke="rgba(44,82,130,.15)" stroke-dasharray="3,2"/>
+      <text x="205" y="315" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Logs → SIEM</text>
+      <text x="205" y="327" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Sentinel / Splunk</text>
+      <rect x="152" y="344" width="106" height="32" rx="3" fill="rgba(200,146,42,.08)" stroke="rgba(200,146,42,.2)"/>
+      <text x="205" y="359" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="10">Posture Check</text>
+      <text x="205" y="371" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Managed Device</text>
+
+      <!-- AZURE HUB -->
+      <rect x="284" y="32" width="200" height="424" rx="7" fill="url(#azGrad)" stroke="rgba(0,120,212,.45)" stroke-width="1.5"/>
+      <text x="384" y="22" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">AZURE HUB VNET</text>
+      <rect x="296" y="44" width="176" height="34" rx="4" fill="rgba(0,120,212,.3)" stroke="rgba(0,120,212,.5)"/>
+      <text x="384" y="60" text-anchor="middle" fill="#4a90d9" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">Azure vWAN</text>
+      <text x="384" y="72" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Virtual WAN Hub</text>
+      <rect x="296" y="90" width="84" height="30" rx="3" fill="rgba(0,120,212,.15)" stroke="rgba(0,120,212,.3)"/>
+      <text x="338" y="104" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="500">ExpressRoute</text>
+      <text x="338" y="115" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">10G Circuit</text>
+      <rect x="388" y="90" width="84" height="30" rx="3" fill="rgba(0,120,212,.15)" stroke="rgba(0,120,212,.3)"/>
+      <text x="430" y="104" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="500">VPN Gateway</text>
+      <text x="430" y="115" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">S2S Backup</text>
+      <rect x="296" y="134" width="176" height="38" rx="4" fill="rgba(200,146,42,.2)" stroke="rgba(200,146,42,.5)" stroke-width="1.5"/>
+      <text x="384" y="151" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">Fortinet NGFW</text>
+      <text x="384" y="165" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">E/W + N/S · UDR Enforced</text>
+      <rect x="296" y="184" width="84" height="28" rx="3" fill="rgba(0,120,212,.12)" stroke="rgba(0,120,212,.22)"/>
+      <text x="338" y="198" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">Azure Firewall</text>
+      <text x="338" y="208" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Policy-based</text>
+      <rect x="388" y="184" width="84" height="28" rx="3" fill="rgba(0,120,212,.12)" stroke="rgba(0,120,212,.22)"/>
+      <text x="430" y="198" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">App Gateway</text>
+      <text x="430" y="208" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">WAF v2</text>
+      <rect x="296" y="224" width="176" height="26" rx="3" fill="rgba(30,58,95,.5)" stroke="rgba(44,82,130,.3)"/>
+      <text x="384" y="241" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Spoke VNets (VNet Peering)</text>
+      <rect x="296" y="262" width="84" height="28" rx="3" fill="rgba(200,146,42,.1)" stroke="rgba(200,146,42,.3)"/>
+      <text x="338" y="275" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="9">ZPA Connectors</text>
+      <text x="338" y="285" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Dedicated Subnet x4</text>
+      <rect x="388" y="262" width="84" height="28" rx="3" fill="rgba(0,120,212,.1)" stroke="rgba(0,120,212,.2)"/>
+      <text x="430" y="275" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">Bastion Host</text>
+      <text x="430" y="285" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Privileged Access</text>
+      <rect x="296" y="302" width="176" height="26" rx="3" fill="rgba(0,120,212,.08)" stroke="rgba(0,120,212,.18)" stroke-dasharray="3,2"/>
+      <text x="384" y="319" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Sentinel / Defender for Cloud</text>
+      <rect x="296" y="340" width="176" height="26" rx="3" fill="rgba(0,120,212,.06)" stroke="rgba(0,120,212,.14)" stroke-dasharray="3,2"/>
+      <text x="384" y="357" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Key Vault / RBAC / PIM</text>
+      <text x="384" y="402" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">BGP routes via ExpressRoute</text>
+      <text x="384" y="414" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">UDR: all traffic via NGFW</text>
+      <text x="384" y="426" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Terraform-managed infrastructure</text>
+
+      <!-- ON-PREM DC -->
+      <rect x="500" y="68" width="152" height="306" rx="5" fill="rgba(30,58,95,.18)" stroke="rgba(44,82,130,.35)" stroke-width="1.5"/>
+      <text x="576" y="60" text-anchor="middle" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">ON-PREM DC</text>
+      <rect x="510" y="80" width="130" height="32" rx="4" fill="rgba(200,146,42,.18)" stroke="rgba(200,146,42,.4)"/>
+      <text x="575" y="95" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="11" font-weight="700">Palo Alto NGFW</text>
+      <text x="575" y="106" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Perimeter FW</text>
+      <rect x="510" y="124" width="60" height="28" rx="3" fill="rgba(30,58,95,.5)" stroke="rgba(44,82,130,.3)"/>
+      <text x="540" y="138" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">F5 BIG-IP</text>
+      <text x="540" y="148" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">LB / WAF</text>
+      <rect x="578" y="124" width="60" height="28" rx="3" fill="rgba(30,58,95,.5)" stroke="rgba(44,82,130,.3)"/>
+      <text x="608" y="138" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">VMware</text>
+      <text x="608" y="148" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">NSX</text>
+      <rect x="510" y="164" width="130" height="26" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.2)"/>
+      <text x="575" y="181" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">App Servers / EHR</text>
+      <rect x="510" y="202" width="130" height="26" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.2)"/>
+      <text x="575" y="219" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">Legacy Systems</text>
+      <rect x="510" y="240" width="130" height="28" rx="3" fill="rgba(200,146,42,.1)" stroke="rgba(200,146,42,.25)"/>
+      <text x="575" y="253" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="9">ZPA Connectors (x4)</text>
+      <text x="575" y="263" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Dedicated VLAN</text>
+      <rect x="510" y="280" width="130" height="28" rx="3" fill="rgba(30,58,95,.3)" stroke="rgba(44,82,130,.15)" stroke-dasharray="3,2"/>
+      <text x="575" y="293" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="9">DR Site</text>
+      <text x="575" y="304" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">ZPA Connectors x2</text>
+      <rect x="510" y="320" width="130" height="26" rx="3" fill="rgba(30,58,95,.2)" stroke="rgba(44,82,130,.12)" stroke-dasharray="3,2"/>
+      <text x="575" y="337" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="9">Cisco Meraki SD-WAN</text>
+
+      <!-- OCI -->
+      <rect x="668" y="96" width="172" height="210" rx="5" fill="rgba(220,50,50,.05)" stroke="rgba(220,80,80,.3)"/>
+      <text x="754" y="88" text-anchor="middle" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="9" letter-spacing="1">OCI</text>
+      <rect x="678" y="108" width="152" height="28" rx="4" fill="rgba(220,50,50,.15)" stroke="rgba(220,80,80,.3)"/>
+      <text x="754" y="126" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">OCI FastConnect</text>
+      <rect x="678" y="148" width="152" height="26" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.2)"/>
+      <text x="754" y="165" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">App Workloads</text>
+      <rect x="678" y="186" width="152" height="26" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.2)"/>
+      <text x="754" y="203" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="9">DB / Object Storage</text>
+      <rect x="678" y="224" width="152" height="26" rx="3" fill="rgba(200,146,42,.08)" stroke="rgba(200,146,42,.2)"/>
+      <text x="754" y="241" text-anchor="middle" fill="#c8922a" font-family="DM Sans,sans-serif" font-size="9">ZPA Connectors</text>
+      <rect x="678" y="262" width="152" height="26" rx="3" fill="rgba(30,58,95,.25)" stroke="rgba(44,82,130,.15)" stroke-dasharray="3,2"/>
+      <text x="754" y="279" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="9">Fortinet Cloud NGFW</text>
+
+      <!-- FLOW ARROWS -->
+      <line x1="126" y1="105" x2="140" y2="105" stroke="rgba(200,146,42,.7)" stroke-width="1.5" marker-end="url(#arO)"/>
+      <line x1="126" y1="165" x2="140" y2="165" stroke="rgba(74,144,217,.6)" stroke-width="1.5" marker-end="url(#arB)"/>
+      <line x1="126" y1="275" x2="140" y2="240" stroke="rgba(74,144,217,.4)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arB)"/>
+      <line x1="268" y1="138" x2="282" y2="190" stroke="rgba(200,146,42,.7)" stroke-width="2" marker-end="url(#arO)"/>
+      <line x1="268" y1="268" x2="498" y2="255" stroke="rgba(200,146,42,.4)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arO)"/>
+      <line x1="484" y1="155" x2="498" y2="155" stroke="rgba(74,144,217,.7)" stroke-width="2" marker-end="url(#arB)"/>
+      <line x1="484" y1="290" x2="666" y2="225" stroke="rgba(74,144,217,.4)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arB)"/>
+      <line x1="652" y1="185" x2="666" y2="185" stroke="rgba(74,144,217,.35)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arB)"/>
+
+      <!-- Legend -->
+      <g transform="translate(8,462)" font-family="DM Mono,monospace" font-size="9" fill="#8a9bb5">
+        <line x1="0" y1="8" x2="28" y2="8" stroke="rgba(200,146,42,.8)" stroke-width="1.5" marker-end="url(#arO)"/>
+        <text x="34" y="12">Zero Trust / ZPA flow</text>
+        <line x1="190" y1="8" x2="218" y2="8" stroke="rgba(74,144,217,.8)" stroke-width="1.5" marker-end="url(#arB)"/>
+        <text x="224" y="12">Network / ExpressRoute</text>
+        <line x1="400" y1="8" x2="428" y2="8" stroke="rgba(200,146,42,.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arO)"/>
+        <text x="434" y="12">Connector tunnel (outbound-initiated)</text>
+        <line x1="660" y1="8" x2="688" y2="8" stroke="rgba(74,144,217,.4)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arB)"/>
+        <text x="694" y="12">Inter-cloud (OCI FastConnect)</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-header reveal"><span class="section-tag">05 / Writing</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:2.5rem">From the Blog</h2>
+  <div class="blog-grid">
+    <a href="https://venkatesh.hashnode.dev" target="_blank" class="blog-card featured reveal">
+      <div class="blog-tag">Cloud Migration · Deep Dive</div>
+      <div class="blog-title">Zero Trust in Practice: How I Implemented Zscaler ZPA Across a Hybrid Enterprise</div>
+      <div class="blog-excerpt">Most zero-trust guides stop at theory. This post walks through the actual deployment — ZPA connector placement, IdP integration, and the three-week cutover that decommissioned legacy VPN without a single incident.</div>
+      <div class="blog-meta"><span class="blog-date">Coming Soon · Hashnode</span><span class="blog-read">Read →</span></div>
+    </a>
+    <a href="https://venkatesh.hashnode.dev" target="_blank" class="blog-card reveal">
+      <div class="blog-tag">Security Architecture</div>
+      <div class="blog-title">Firewall Migration Playbook: Palo Alto to Fortinet Without Downtime</div>
+      <div class="blog-excerpt">A practical, phased approach — rule rationalisation, parallel-run strategy, and traffic validation that doesn't need a maintenance window.</div>
+      <div class="blog-meta"><span class="blog-date">Coming Soon</span><span class="blog-read">Read →</span></div>
+    </a>
+    <a href="https://venkatesh.hashnode.dev" target="_blank" class="blog-card reveal">
+      <div class="blog-tag">Azure · Networking</div>
+      <div class="blog-title">Azure vWAN vs Traditional Hub-Spoke: What the Docs Don't Tell You</div>
+      <div class="blog-excerpt">After deploying both at enterprise scale, here's the honest trade-off breakdown — routing behaviour, NVA quirks, when hub-spoke still wins.</div>
+      <div class="blog-meta"><span class="blog-date">Coming Soon</span><span class="blog-read">Read →</span></div>
+    </a>
+  </div>
+  <div class="blog-cta reveal"><a href="https://venkatesh.hashnode.dev" target="_blank" class="btn-outline">View All Posts on Hashnode →</a></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-tag">06 / Contact</p>
+  <h2 class="contact-title reveal">Let's Build Something Secure</h2>
+  <p class="contact-sub reveal">Open to senior architecture, transformation leadership, and advisory engagements across cloud, network, and security domains.</p>
+  <div class="contact-links reveal">
+    <a href="https://linkedin.com/in/venkateshbabu-premnath" class="contact-link" target="_blank">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+      LinkedIn Profile
+    </a>
+    <a href="mailto:venkatesh@example.com" class="contact-link">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5"/></svg>
+      Send Email
+    </a>
+    <a href="#" class="contact-link">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.5"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="1.5"/></svg>
+      Download CV
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 Venkateshbabu Premnath. All rights reserved.</div>
+  <div class="footer-location">
+    <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
+    Bengaluru, India
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:.1, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i) => {
+    el.style.transitionDelay = `${(i%4)*.07}s`;
+    obs.observe(el);
+  });
+
+  // Active nav
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if(window.scrollY >= s.offsetTop-100) cur = s.id; });
+    navAs.forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--accent)' : ''; });
+  });
+
+  // Animated bars
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.querySelectorAll('.bar').forEach(bar => {
+          const tw = parseInt(bar.getAttribute('data-w'));
+          let cw = 0;
+          const step = tw/45;
+          const t = setInterval(() => {
+            cw = Math.min(cw+step, tw);
+            bar.setAttribute('width', cw);
+            if(cw>=tw) clearInterval(t);
+          }, 18);
+        });
+        barObs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.25});
+  document.querySelectorAll('.ig-box').forEach(el => barObs.observe(el));
+</script>
+</body>
+</html>
