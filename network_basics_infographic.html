@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Network Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2ff 0%, #e8f5ff 100%);
+            padding: 40px 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #1e5a96 0%, #2a7ab8 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 24px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #e8eef7;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .card-number {
+            background: linear-gradient(135deg, #1e5a96 0%, #2a7ab8 100%);
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .card-title {
+            color: #1e5a96;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f5ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2a7ab8;
+            margin-bottom: 12px;
+        }
+        
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .card-analogy {
+            background: #f0f8ff;
+            border-left: 4px solid #2a7ab8;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #444;
+            font-style: italic;
+        }
+        
+        .footer-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 2px solid #e8eef7;
+        }
+        
+        .footer-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e5a96;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .protocol-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f5ff 100%);
+            border: 2px solid #2a7ab8;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .protocol-box:hover {
+            background: linear-gradient(135deg, #2a7ab8 0%, #1e5a96 100%);
+            color: white;
+            border-color: white;
+        }
+        
+        .protocol-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .protocol-name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .protocol-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .key-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .concept {
+            background: white;
+            border-left: 4px solid #2a7ab8;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        
+        .concept-title {
+            font-weight: 700;
+            color: #1e5a96;
+            margin-bottom: 8px;
+        }
+        
+        .concept-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Understanding Network Basics</h1>
+            <p>The Internet is like a <strong>Road System</strong></p>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Card 1: Bandwidth -->
+            <div class="card">
+                <div class="card-number">1. Bandwidth</div>
+                <div class="card-image">🛣️</div>
+                <div class="card-content">
+                    <div class="card-subtitle">More Lanes = More Data</div>
+                    <div class="card-description">Bandwidth is the maximum amount of data that can travel through a connection at one time, measured in Mbps or Gbps.</div>
+                    <div class="card-analogy">Like a highway with multiple lanes—more lanes allow more cars to travel simultaneously.</div>
+                </div>
+            </div>
+            
+            <!-- Card 2: Latency -->
+            <div class="card">
+                <div class="card-number">2. Latency</div>
+                <div class="card-image">⏱️</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Travel Time Matters</div>
+                    <div class="card-description">Latency is the delay between sending and receiving data, measured in milliseconds. Low latency = fast response.</div>
+                    <div class="card-analogy">Like the time it takes for a car to drive from point A to point B.</div>
+                </div>
+            </div>
+            
+            <!-- Card 3: Packets -->
+            <div class="card">
+                <div class="card-number">3. Packets</div>
+                <div class="card-image">📦</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Data in Small Packages</div>
+                    <div class="card-description">Data is broken into small chunks called packets, each with header information and destination details.</div>
+                    <div class="card-analogy">Like shipping containers on trucks—each packet is a container carrying data to its destination.</div>
+                </div>
+            </div>
+            
+            <!-- Card 4: Routers -->
+            <div class="card">
+                <div class="card-number">4. Routers</div>
+                <div class="card-image">🔀</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Traffic Control</div>
+                    <div class="card-description">Routers direct packets to their destination by examining addresses and choosing optimal paths through the network.</div>
+                    <div class="card-analogy">Like traffic intersections that direct cars along the best route to their destination.</div>
+                </div>
+            </div>
+            
+            <!-- Card 5: Congestion -->
+            <div class="card">
+                <div class="card-number">5. Congestion</div>
+                <div class="card-image">🚦</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Network Bottlenecks</div>
+                    <div class="card-description">When too much traffic uses the same path, packets queue up and experience delays.</div>
+                    <div class="card-analogy">Like rush hour traffic jams—too many cars on the same road causes slowdowns.</div>
+                </div>
+            </div>
+            
+            <!-- Card 6: Signal Quality -->
+            <div class="card">
+                <div class="card-number">6. Signal Quality</div>
+                <div class="card-image">📶</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Clear Signal Path</div>
+                    <div class="card-description">Signal degradation, interference, or physical obstacles reduce data transmission reliability and speed.</div>
+                    <div class="card-analogy">Like a radio station's broadcast quality—interference weakens the signal.</div>
+                </div>
+            </div>
+            
+            <!-- Card 7: Throughput -->
+            <div class="card">
+                <div class="card-number">7. Throughput</div>
+                <div class="card-image">🎯</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Actual Data Rate</div>
+                    <div class="card-description">Throughput is the real-world amount of data successfully transmitted, often less than theoretical bandwidth.</div>
+                    <div class="card-analogy">Like actual cars per hour passing a checkpoint—less than the road's maximum capacity.</div>
+                </div>
+            </div>
+            
+            <!-- Card 8: Protocols -->
+            <div class="card">
+                <div class="card-number">8. Protocols</div>
+                <div class="card-image">📋</div>
+                <div class="card-content">
+                    <div class="card-subtitle">Rules of Communication</div>
+                    <div class="card-description">Protocols are standardized rules that devices follow to communicate, ensuring compatibility and reliable data exchange.</div>
+                    <div class="card-analogy">Like traffic rules—everyone follows the same conventions for safe, orderly communication.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer: Protocols -->
+        <div class="footer-section">
+            <div class="footer-title">Common Network Protocols</div>
+            <div class="protocol-grid">
+                <div class="protocol-box">
+                    <div class="protocol-icon">🌐</div>
+                    <div class="protocol-name">TCP/IP</div>
+                    <div class="protocol-desc">Internet foundation protocol</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">📧</div>
+                    <div class="protocol-name">HTTP/HTTPS</div>
+                    <div class="protocol-desc">Web browsing</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">📨</div>
+                    <div class="protocol-name">SMTP</div>
+                    <div class="protocol-desc">Email sending</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">📩</div>
+                    <div class="protocol-name">POP/IMAP</div>
+                    <div class="protocol-desc">Email retrieval</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">📁</div>
+                    <div class="protocol-name">FTP/SFTP</div>
+                    <div class="protocol-desc">File transfer</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">🔒</div>
+                    <div class="protocol-name">SSL/TLS</div>
+                    <div class="protocol-desc">Secure encryption</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">🗣️</div>
+                    <div class="protocol-name">VoIP</div>
+                    <div class="protocol-desc">Voice over IP</div>
+                </div>
+                <div class="protocol-box">
+                    <div class="protocol-icon">🎮</div>
+                    <div class="protocol-name">UDP</div>
+                    <div class="protocol-desc">Low-latency data</div>
+                </div>
+            </div>
+            
+            <div class="key-concepts">
+                <div class="concept">
+                    <div class="concept-title">OSI Model</div>
+                    <div class="concept-desc">7-layer framework describing network communication processes: Physical, Data Link, Network, Transport, Session, Presentation, Application</div>
+                </div>
+                <div class="concept">
+                    <div class="concept-title">IP Addressing</div>
+                    <div class="concept-desc">IPv4 (32-bit) and IPv6 (128-bit) addresses uniquely identify devices on a network, enabling data routing</div>
+                </div>
+                <div class="concept">
+                    <div class="concept-title">DNS</div>
+                    <div class="concept-desc">Domain Name System translates human-readable domain names to IP addresses for device discovery</div>
+                </div>
+                <div class="concept">
+                    <div class="concept-title">Quality of Service</div>
+                    <div class="concept-desc">QoS techniques prioritize network traffic to ensure critical applications maintain performance</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
