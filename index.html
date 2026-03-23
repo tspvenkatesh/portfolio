@@ -102,6 +102,26 @@
   /* ARCHITECTURE SECTION */
   #architecture{background:var(--navy)}
 
+  /* INFOGRAPHICS */
+  #infographics{background:var(--navy)}
+  .ig-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:.5rem}
+  .ig-card{background:var(--navy-mid);border:1px solid rgba(200,146,42,.15);border-radius:2px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:all .3s;position:relative}
+  .ig-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--accent),var(--accent-light));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .ig-card:hover{transform:translateY(-5px);border-color:rgba(200,146,42,.4);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+  .ig-card:hover::before{transform:scaleX(1)}
+  .ig-card-thumb{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .ig-card-thumb svg{width:100%;height:100%}
+  .ig-card-body{padding:1.6rem}
+  .ig-card-category{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+  .ig-card-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--white);margin-bottom:.7rem;line-height:1.35}
+  .ig-card-desc{font-size:.83rem;line-height:1.7;color:var(--gray);margin-bottom:1.2rem}
+  .ig-card-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+  .ig-card-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:var(--gray);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);padding:.25rem .6rem}
+  .ig-card-cta{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:auto;display:flex;align-items:center;gap:.4rem}
+  .ig-card-cta::after{content:'→'}
+  @media(max-width:1024px){.ig-cards-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:768px){.ig-cards-grid{grid-template-columns:1fr}}
+
   /* BLOG */
   #blog{background:var(--navy-mid)}
   .blog-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:1.5px;background:rgba(200,146,42,.1);margin-bottom:2.5rem}
@@ -156,6 +176,7 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#infographics">Infographics</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -175,7 +196,7 @@
   </div>
   <div class="hero-stats">
     <div class="stat-box"><div class="stat-number">15+</div><div class="stat-label">Years Experience</div></div>
-    <div class="stat-box"><div class="stat-number">3</div><div class="stat-label">Cloud Platforms</div></div>
+    <div class="stat-box"><div class="stat-number">6</div><div class="stat-label">Companies</div></div>
     <div class="stat-box"><div class="stat-number">DC</div><div class="stat-label">Migration Lead</div></div>
     <div class="stat-box"><div class="stat-number">E2E</div><div class="stat-label">Security Architect</div></div>
   </div>
@@ -345,76 +366,168 @@
   <div class="section-header reveal"><span class="section-tag">03 / Experience</span><div class="section-line"></div></div>
   <h2 class="section-title reveal" style="margin-bottom:3rem">Career Journey</h2>
   <div class="timeline">
+
+    <!-- Role 1: Intuitive -->
     <div class="timeline-item reveal">
-      <div class="timeline-meta"><span class="timeline-period">2020 — Present</span><span class="timeline-company">· Enterprise / Global Environments</span></div>
-      <div class="timeline-role">Network &amp; Security Architecture Lead</div>
+      <div class="timeline-meta">
+        <span class="timeline-period">Feb 2026 — Present</span>
+        <span class="timeline-company">· Intuitive · Bengaluru, India</span>
+      </div>
+      <div class="timeline-role">Network Security Architect</div>
       <ul class="timeline-points">
-        <li>Led end-to-end data centre migration programmes including Lift-and-Shift, AVS, and VMware NSX transformations</li>
-        <li>Designed secure hybrid-cloud architectures on Azure and OCI using vWAN, ExpressRoute, Fortinet NGFW, and Zscaler ZPA</li>
-        <li>Governed HLD/LLD documentation and architecture review processes ensuring compliance, risk alignment, and business continuity</li>
-        <li>Mentored cross-functional network, cloud, and security teams through large-scale T&amp;T programmes</li>
+        <li>Designing and implementing enterprise network security architecture for Intuitive's Global Capability Centre at Embassy Golf Links, Bengaluru — supporting robotic-assisted surgery systems and global IT operations</li>
+        <li>Leading secure network architecture across hybrid environments connecting the GCC to Intuitive's global datacentres and cloud platforms</li>
+        <li>Driving zero-trust network access strategy, firewall governance, and security policy frameworks aligned with FDA and healthcare compliance requirements</li>
+        <li>Collaborating with global IT, security, and engineering teams to architect scalable, resilient infrastructure supporting surgical technology innovation</li>
       </ul>
     </div>
+
+    <!-- Role 2: Unisys -->
     <div class="timeline-item reveal">
-      <div class="timeline-meta"><span class="timeline-period">2016 — 2020</span><span class="timeline-company">· Multi-Vendor Environments</span></div>
-      <div class="timeline-role">Senior Network Security Engineer</div>
+      <div class="timeline-meta">
+        <span class="timeline-period">2020 — Feb 2026</span>
+        <span class="timeline-company">· Unisys · Bengaluru, India</span>
+      </div>
+      <div class="timeline-role">Associate Principal Cybersecurity Engineer</div>
       <ul class="timeline-points">
-        <li>Executed firewall and load balancer migrations across Palo Alto, Fortinet, F5, and AVI for financial and healthcare customers</li>
-        <li>Designed BGP/OSPF routing topologies for DC interconnects and SD-WAN rollouts across distributed enterprise branches</li>
-        <li>Implemented zero-trust network access frameworks and microsegmentation using VMware NSX and Zscaler</li>
+        <li>Led end-to-end data centre migration programmes for enterprise clients including Lift-and-Shift, AVS, and VMware NSX transformations with zero-downtime objectives</li>
+        <li>Architected and delivered secure hybrid-cloud deployments on Azure vWAN and OCI using ExpressRoute, Fortinet NGFW, Zscaler ZPA/ZIA, and zero-trust frameworks</li>
+        <li>Drove Cerner-to-Epic EHR network and security workstream — scoping connectivity for 130+ clinical applications across GCP, Azure, AWS, on-prem, and SaaS environments</li>
+        <li>Governed HLD/LLD documentation, architecture review boards, and risk alignment across regulated enterprise environments including healthcare and financial sectors</li>
+        <li>Mentored and led cross-functional network, cloud, and security engineering teams through large-scale transformation programmes</li>
       </ul>
     </div>
+
+    <!-- Role 3: News Corp -->
     <div class="timeline-item reveal">
-      <div class="timeline-meta"><span class="timeline-period">2010 — 2016</span><span class="timeline-company">· Enterprise Infrastructure</span></div>
-      <div class="timeline-role">Network Engineer — Infrastructure &amp; Security</div>
+      <div class="timeline-meta">
+        <span class="timeline-period">2018 — 2020</span>
+        <span class="timeline-company">· News Corp · Bengaluru, India</span>
+      </div>
+      <div class="timeline-role">Senior Network Engineer</div>
       <ul class="timeline-points">
-        <li>Deployed and managed Cisco routing and switching infrastructure across multi-site enterprise networks</li>
-        <li>Managed F5 BIG-IP load balancer estate including SSL offloading, iRules, and GSLB configurations</li>
-        <li>Supported firewall policy management, VPN deployments, and perimeter security for regulated environments</li>
+        <li>Designed and implemented ISP links, network and security device infrastructure for enterprise data centre migration and cutover at News Technology Services</li>
+        <li>Managed day-to-day operations of customer IT infrastructure environments including network and security devices across enterprise and contact centre locations</li>
+        <li>Ensured high availability of enterprise application, web, and database servers through robust network design and proactive incident management</li>
+        <li>Executed firewall and load balancer policy migrations with comprehensive traffic validation and rollback strategies</li>
       </ul>
     </div>
+
+    <!-- Role 4: TCS -->
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <span class="timeline-period">2016 — 2018</span>
+        <span class="timeline-company">· Tata Consultancy Services · Bengaluru, India</span>
+      </div>
+      <div class="timeline-role">Network Administrator</div>
+      <ul class="timeline-points">
+        <li>Provided network operations and maintenance support for Hawaiian Airlines' data centre and business centre environments</li>
+        <li>Configured and deployed site-to-site VPN tunnels between client locations using Fortinet firewalls and Palo Alto / Cisco ASA perimeter devices</li>
+        <li>Supported routing, switching, and wireless infrastructure across distributed enterprise branches with Cisco Meraki and traditional switching platforms</li>
+        <li>Managed network change control, incident response, and escalation for business-critical connectivity across airline operations</li>
+      </ul>
+    </div>
+
+    <!-- Role 5: Nokia -->
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <span class="timeline-period">2015 — 2016</span>
+        <span class="timeline-company">· Nokia · Bengaluru, India</span>
+      </div>
+      <div class="timeline-role">Senior Network Engineer</div>
+      <ul class="timeline-points">
+        <li>Supported Nokia's enterprise network infrastructure with expertise in routing protocols (BGP, OSPF) and large-scale switching environments</li>
+        <li>Managed network security configurations including firewall policies, VPN connectivity, and access control across multi-site environments</li>
+        <li>Provided L3 escalation support for complex network incidents and contributed to infrastructure optimisation and capacity planning</li>
+      </ul>
+    </div>
+
+    <!-- Role 6: Telesonic -->
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <span class="timeline-period">2011 — 2015</span>
+        <span class="timeline-company">· Telesonic Networks Limited · India</span>
+      </div>
+      <div class="timeline-role">Senior Network Engineer</div>
+      <ul class="timeline-points">
+        <li>Deployed and managed enterprise Cisco routing and switching infrastructure across multi-site networks including ISP-grade environments</li>
+        <li>Administered F5 BIG-IP load balancer estate covering SSL offloading, iRules, GSLB, and traffic management configurations</li>
+        <li>Supported perimeter firewall policy management, site-to-site VPN deployments, and network security hardening for enterprise customers</li>
+        <li>Delivered network infrastructure projects from design through implementation, building the foundation across routing, switching, and security disciplines</li>
+      </ul>
+    </div>
+
   </div>
 
-  <!-- INFOGRAPHIC 3: CAREER ARC TIMELINE -->
+  <!-- INFOGRAPHIC 3: CAREER ARC TIMELINE — updated with real companies & dates -->
   <div class="ig-box reveal">
     <div class="ig-label">Infographic 03 — 15-Year Career Arc &amp; Trajectory</div>
-    <svg viewBox="0 0 860 210" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="60%" stop-color="#2c5282"/><stop offset="100%" stop-color="#c8922a"/></linearGradient></defs>
-      <line x1="50" y1="105" x2="810" y2="105" stroke="url(#tg)" stroke-width="3"/>
-      <!-- Milestones -->
-      <circle cx="50" cy="105" r="8" fill="#1e3a5f" stroke="#c8922a" stroke-width="2"/>
-      <text x="50" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2010</text>
-      <text x="50" y="80" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Network Eng.</text>
-      <circle cx="200" cy="105" r="6" fill="#1e3a5f" stroke="#8a9bb5" stroke-width="1.5"/>
-      <text x="200" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2013</text>
-      <text x="200" y="85" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">F5 &amp; Firewall</text>
-      <text x="200" y="97" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Specialist</text>
-      <circle cx="380" cy="105" r="8" fill="#2c5282" stroke="#c8922a" stroke-width="2"/>
-      <text x="380" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2016</text>
-      <text x="380" y="80" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Sr. Network Security</text>
-      <text x="380" y="93" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">Engineer</text>
-      <circle cx="540" cy="105" r="6" fill="#2c5282" stroke="#8a9bb5" stroke-width="1.5"/>
-      <text x="540" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2018</text>
-      <text x="540" y="85" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Cloud Migration</text>
-      <text x="540" y="97" text-anchor="middle" fill="#8a9bb5" font-family="DM Sans,sans-serif" font-size="10">Lead</text>
-      <circle cx="680" cy="105" r="9" fill="#c8922a" stroke="#e8b84b" stroke-width="2"/>
-      <text x="680" y="135" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="10">2020</text>
-      <text x="680" y="78" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">Architecture Lead</text>
-      <text x="680" y="91" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Network &amp; Security</text>
-      <circle cx="810" cy="105" r="11" fill="#c8922a" stroke="#e8b84b" stroke-width="2.5"/>
-      <circle cx="810" cy="105" r="5" fill="#e8b84b"/>
-      <text x="810" y="135" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="10" font-weight="600">NOW</text>
-      <text x="810" y="72" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="13" font-weight="700">CISSP Track</text>
-      <text x="810" y="85" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">→ Leadership</text>
+    <svg viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1e3a5f"/>
+          <stop offset="55%" stop-color="#2c5282"/>
+          <stop offset="100%" stop-color="#c8922a"/>
+        </linearGradient>
+      </defs>
+      <!-- Main timeline line -->
+      <line x1="40" y1="115" x2="860" y2="115" stroke="url(#tg)" stroke-width="3"/>
+
+      <!-- 2011 — Telesonic -->
+      <circle cx="40" cy="115" r="7" fill="#1e3a5f" stroke="#8a9bb5" stroke-width="1.5"/>
+      <text x="40" y="143" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">2011</text>
+      <text x="40" y="92" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">Telesonic</text>
+      <text x="40" y="104" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Sr. Network Eng.</text>
+
+      <!-- 2015 — Nokia -->
+      <circle cx="185" cy="115" r="7" fill="#1e3a5f" stroke="#8a9bb5" stroke-width="1.5"/>
+      <text x="185" y="143" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">2015</text>
+      <text x="185" y="92" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">Nokia</text>
+      <text x="185" y="104" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Sr. Network Eng.</text>
+
+      <!-- 2016 — TCS -->
+      <circle cx="330" cy="115" r="8" fill="#2c5282" stroke="#c8922a" stroke-width="2"/>
+      <text x="330" y="143" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">2016</text>
+      <text x="330" y="88" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">TCS</text>
+      <text x="330" y="100" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Network Admin</text>
+      <text x="330" y="111" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Hawaiian Airlines</text>
+
+      <!-- 2018 — News Corp -->
+      <circle cx="480" cy="115" r="8" fill="#2c5282" stroke="#c8922a" stroke-width="2"/>
+      <text x="480" y="143" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">2018</text>
+      <text x="480" y="88" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">News Corp</text>
+      <text x="480" y="100" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Sr. Network Eng.</text>
+      <text x="480" y="111" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">DC Migration</text>
+
+      <!-- 2020 — Unisys -->
+      <circle cx="640" cy="115" r="9" fill="#c8922a" stroke="#e8b84b" stroke-width="2"/>
+      <text x="640" y="145" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">2020</text>
+      <text x="640" y="82" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">Unisys</text>
+      <text x="640" y="95" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Assoc. Principal</text>
+      <text x="640" y="107" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Cybersecurity Eng.</text>
+
+      <!-- Feb 2026 — Intuitive (NOW) -->
+      <circle cx="860" cy="115" r="12" fill="#c8922a" stroke="#e8b84b" stroke-width="2.5"/>
+      <circle cx="860" cy="115" r="5" fill="#e8b84b"/>
+      <text x="860" y="147" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="9" font-weight="600">Feb 2026</text>
+      <text x="860" y="76" text-anchor="middle" fill="#e8b84b" font-family="DM Sans,sans-serif" font-size="13" font-weight="700">Intuitive</text>
+      <text x="860" y="89" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Network Security</text>
+      <text x="860" y="101" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="10">Architect</text>
+      <text x="860" y="159" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="9">NOW ●</text>
+
       <!-- Phase bands -->
-      <rect x="50" y="152" width="330" height="16" fill="rgba(44,82,130,.2)" rx="2"/>
-      <text x="215" y="163" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">FOUNDATION PHASE</text>
-      <rect x="380" y="152" width="300" height="16" fill="rgba(44,82,130,.35)" rx="2"/>
-      <text x="530" y="163" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">SPECIALISATION PHASE</text>
-      <rect x="680" y="152" width="130" height="16" fill="rgba(200,146,42,.3)" rx="2"/>
-      <text x="745" y="163" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="8" letter-spacing="1">LEADERSHIP PHASE</text>
-      <rect x="50" y="178" width="760" height="18" fill="rgba(200,146,42,.04)" rx="2"/>
-      <text x="430" y="191" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">Consistent growth from hands-on engineer → cross-platform specialist → enterprise architecture lead</text>
+      <rect x="40" y="170" width="290" height="16" fill="rgba(44,82,130,.2)" rx="2"/>
+      <text x="185" y="181" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7.5" letter-spacing="1">FOUNDATION PHASE</text>
+      <rect x="330" y="170" width="310" height="16" fill="rgba(44,82,130,.35)" rx="2"/>
+      <text x="485" y="181" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7.5" letter-spacing="1">SPECIALISATION PHASE</text>
+      <rect x="640" y="170" width="220" height="16" fill="rgba(200,146,42,.3)" rx="2"/>
+      <text x="750" y="181" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="7.5" letter-spacing="1">LEADERSHIP / ARCHITECTURE PHASE</text>
+
+      <!-- Footer note -->
+      <rect x="40" y="196" width="820" height="18" fill="rgba(200,146,42,.04)" rx="2"/>
+      <text x="450" y="209" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">
+        Telesonic → Nokia → TCS → News Corp → Unisys → Intuitive  ·  15+ years of continuous growth across network, security, and cloud architecture
+      </text>
     </svg>
   </div>
 </section>
@@ -665,9 +778,291 @@
   </div>
 </section>
 
+<!-- INFOGRAPHICS -->
+<section id="infographics">
+  <div class="section-header reveal"><span class="section-tag">05b / Infographics</span><div class="section-line"></div></div>
+  <h2 class="section-title reveal" style="margin-bottom:.6rem">Technical Infographics</h2>
+  <p class="reveal" style="font-size:.9rem;color:var(--gray);margin-bottom:2.5rem">Visual explainers on networking and security concepts — built for LinkedIn sharing and professional education.</p>
+
+  <div class="ig-cards-grid">
+
+    <!-- Card 1: Zscaler -->
+    <a href="zscaler_infographic.html" target="_blank" class="ig-card reveal">
+      <div class="ig-card-thumb" style="background:linear-gradient(135deg,#0a1628 0%,#1a2a45 100%)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <!-- Cloud shape -->
+          <ellipse cx="160" cy="72" rx="90" ry="38" fill="rgba(200,146,42,0.12)" stroke="rgba(200,146,42,0.5)" stroke-width="1.5"/>
+          <text x="160" y="68" text-anchor="middle" fill="#e8b84b" font-family="DM Mono,monospace" font-size="13" font-weight="700">ZSCALER CLOUD</text>
+          <text x="160" y="83" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="9">ZIA · ZPA · ZDX</text>
+          <!-- Arrows left to cloud -->
+          <line x1="30" y1="72" x2="68" y2="72" stroke="rgba(200,146,42,.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+          <text x="30" y="62" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="8">Users</text>
+          <!-- Arrows cloud to right -->
+          <line x1="252" y1="60" x2="290" y2="45" stroke="rgba(74,144,217,.6)" stroke-width="1.5" marker-end="url(#a2)"/>
+          <line x1="252" y1="72" x2="290" y2="72" stroke="rgba(74,144,217,.6)" stroke-width="1.5" marker-end="url(#a2)"/>
+          <line x1="252" y1="84" x2="290" y2="95" stroke="rgba(74,144,217,.6)" stroke-width="1.5" marker-end="url(#a2)"/>
+          <text x="294" y="45" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">Internet</text>
+          <text x="294" y="73" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">SaaS</text>
+          <text x="294" y="97" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">On-Prem</text>
+          <!-- Tunnel labels -->
+          <rect x="30" y="106" width="60" height="16" rx="3" fill="rgba(200,146,42,.15)" stroke="rgba(200,146,42,.4)" stroke-width="1"/>
+          <text x="60" y="118" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="7">Tunnel Mode</text>
+          <rect x="100" y="106" width="60" height="16" rx="3" fill="rgba(74,144,217,.15)" stroke="rgba(74,144,217,.4)" stroke-width="1"/>
+          <text x="130" y="118" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">Split Tunnel</text>
+          <rect x="170" y="106" width="60" height="16" rx="3" fill="rgba(44,82,130,.25)" stroke="rgba(44,82,130,.5)" stroke-width="1"/>
+          <text x="200" y="118" text-anchor="middle" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="7">PAC File</text>
+          <rect x="240" y="106" width="60" height="16" rx="3" fill="rgba(30,58,95,.4)" stroke="rgba(44,82,130,.35)" stroke-width="1"/>
+          <text x="270" y="118" text-anchor="middle" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="7">ZPA (ZTNA)</text>
+          <defs>
+            <marker id="a1" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(200,146,42,.8)"/></marker>
+            <marker id="a2" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(74,144,217,.8)"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">Zero Trust · SASE</div>
+        <div class="ig-card-title">Zscaler Traffic Steering &amp; SIPA Architecture</div>
+        <div class="ig-card-desc">Deep-dive into Zscaler Client Connector steering modes — Tunnel, PAC File, Split Tunneling, ZPA ZTNA, and Bypass Rules — with end-to-end ZIA inspection flow.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">ZPA</span><span class="ig-card-tag">ZIA</span><span class="ig-card-tag">ZCC</span>
+          <span class="ig-card-tag">Split Tunnel</span><span class="ig-card-tag">ZTNA</span>
+        </div>
+        <div class="ig-card-cta">View Infographic</div>
+      </div>
+    </a>
+
+    <!-- Card 2: SIEM & SOAR -->
+    <a href="siem_soar_guide.html" target="_blank" class="ig-card reveal">
+      <div class="ig-card-thumb" style="background:linear-gradient(135deg,#0d1e35 0%,#1a1a2e 100%)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <!-- SIEM box -->
+          <rect x="20" y="30" width="120" height="56" rx="5" fill="rgba(200,146,42,.12)" stroke="rgba(200,146,42,.5)" stroke-width="1.5"/>
+          <text x="80" y="55" text-anchor="middle" fill="#e8b84b" font-family="DM Mono,monospace" font-size="14" font-weight="700">SIEM</text>
+          <text x="80" y="70" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Collect · Correlate</text>
+          <text x="80" y="80" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Detect · Alert</text>
+          <!-- SOAR box -->
+          <rect x="180" y="30" width="120" height="56" rx="5" fill="rgba(44,82,130,.25)" stroke="rgba(74,144,217,.5)" stroke-width="1.5"/>
+          <text x="240" y="55" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="14" font-weight="700">SOAR</text>
+          <text x="240" y="70" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Orchestrate · Automate</text>
+          <text x="240" y="80" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Respond · Remediate</text>
+          <!-- Arrow between -->
+          <line x1="140" y1="58" x2="178" y2="58" stroke="rgba(200,146,42,.6)" stroke-width="2" marker-end="url(#a3)"/>
+          <!-- Threat examples below -->
+          <rect x="20" y="104" width="80" height="18" rx="3" fill="rgba(192,57,43,.2)" stroke="rgba(192,57,43,.4)" stroke-width="1"/>
+          <text x="60" y="116" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">Ransomware</text>
+          <rect x="108" y="104" width="80" height="18" rx="3" fill="rgba(192,57,43,.2)" stroke="rgba(192,57,43,.4)" stroke-width="1"/>
+          <text x="148" y="116" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">Brute Force</text>
+          <rect x="196" y="104" width="80" height="18" rx="3" fill="rgba(192,57,43,.2)" stroke="rgba(192,57,43,.4)" stroke-width="1"/>
+          <text x="236" y="116" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">Data Exfiltration</text>
+          <rect x="108" y="130" width="80" height="18" rx="3" fill="rgba(44,82,130,.3)" stroke="rgba(74,144,217,.4)" stroke-width="1"/>
+          <text x="148" y="142" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">Auto-Playbook</text>
+          <defs>
+            <marker id="a3" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(200,146,42,.8)"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">Cybersecurity · SOC Operations</div>
+        <div class="ig-card-title">SIEM &amp; SOAR — Cybersecurity Operations Guide</div>
+        <div class="ig-card-desc">Comprehensive guide covering SIEM vs SOAR capabilities, real-world attack scenarios (ransomware, BEC, insider threat, cloud misconfig) and automated playbook responses.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">SIEM</span><span class="ig-card-tag">SOAR</span><span class="ig-card-tag">SOC</span>
+          <span class="ig-card-tag">Incident Response</span><span class="ig-card-tag">Playbooks</span>
+        </div>
+        <div class="ig-card-cta">View Infographic</div>
+      </div>
+    </a>
+
+    <!-- Card 3: Traceroute -->
+    <a href="traceroute_infographic.html" target="_blank" class="ig-card reveal">
+      <div class="ig-card-thumb" style="background:linear-gradient(135deg,#0a1628 0%,#0f2040 100%)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <!-- Hop chain -->
+          <circle cx="30" cy="80" r="14" fill="rgba(200,146,42,.2)" stroke="rgba(200,146,42,.6)" stroke-width="1.5"/>
+          <text x="30" y="84" text-anchor="middle" fill="#e8b84b" font-family="DM Mono,monospace" font-size="7">YOU</text>
+          <line x1="44" y1="80" x2="76" y2="80" stroke="rgba(200,146,42,.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="90" cy="80" r="12" fill="rgba(44,82,130,.3)" stroke="rgba(74,144,217,.5)" stroke-width="1.5"/>
+          <text x="90" y="77" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">HOP</text>
+          <text x="90" y="87" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">1</text>
+          <text x="90" y="101" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">2ms</text>
+          <line x1="102" y1="80" x2="134" y2="80" stroke="rgba(74,144,217,.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="148" cy="80" r="12" fill="rgba(44,82,130,.3)" stroke="rgba(74,144,217,.5)" stroke-width="1.5"/>
+          <text x="148" y="77" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">HOP</text>
+          <text x="148" y="87" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">2</text>
+          <text x="148" y="101" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">18ms</text>
+          <line x1="160" y1="80" x2="192" y2="80" stroke="rgba(192,57,43,.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="206" cy="80" r="12" fill="rgba(192,57,43,.2)" stroke="rgba(192,57,43,.6)" stroke-width="1.5"/>
+          <text x="206" y="77" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">HOP</text>
+          <text x="206" y="87" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">3</text>
+          <text x="206" y="101" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="6">* * *</text>
+          <line x1="218" y1="80" x2="250" y2="80" stroke="rgba(44,82,130,.4)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="264" cy="80" r="12" fill="rgba(44,82,130,.3)" stroke="rgba(74,144,217,.5)" stroke-width="1.5"/>
+          <text x="264" y="77" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">HOP</text>
+          <text x="264" y="87" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">4</text>
+          <text x="264" y="101" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">45ms</text>
+          <line x1="276" y1="80" x2="294" y2="80" stroke="rgba(46,125,82,.5)" stroke-width="1.5"/>
+          <circle cx="304" cy="80" r="12" fill="rgba(46,125,82,.25)" stroke="rgba(46,125,82,.7)" stroke-width="1.5"/>
+          <text x="304" y="84" text-anchor="middle" fill="#2ecc71" font-family="DM Mono,monospace" font-size="7">DST</text>
+          <!-- TTL label -->
+          <text x="160" y="30" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">TTL Expiry Probe · UDP / ICMP</text>
+          <text x="160" y="44" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Each hop decrements TTL → triggers ICMP Time Exceeded reply</text>
+          <text x="206" y="120" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="8">Firewall filtered</text>
+          <!-- RTT bar chart mini -->
+          <rect x="50" y="128" width="4" height="10" fill="rgba(74,144,217,.6)"/>
+          <rect x="58" y="122" width="4" height="16" fill="rgba(74,144,217,.6)"/>
+          <rect x="66" y="110" width="4" height="28" fill="rgba(192,57,43,.6)"/>
+          <rect x="74" y="115" width="4" height="23" fill="rgba(74,144,217,.6)"/>
+          <text x="64" y="148" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">RTT per hop</text>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">Network Diagnostics · Protocols</div>
+        <div class="ig-card-title">Understanding Traceroute — Hop-by-Hop Network Analysis</div>
+        <div class="ig-card-desc">Complete guide to traceroute — how TTL expiry probes work, hop-by-hop RTT analysis, packet structure, interpreting asterisks (*), and diagnosing network issues.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">Traceroute</span><span class="ig-card-tag">TTL</span><span class="ig-card-tag">ICMP</span>
+          <span class="ig-card-tag">UDP</span><span class="ig-card-tag">Network Debug</span>
+        </div>
+        <div class="ig-card-cta">View Infographic</div>
+      </div>
+    </a>
+
+    <!-- Card 4: PING -->
+    <a href="ping_request_infographic.html" target="_blank" class="ig-card reveal">
+      <div class="ig-card-thumb" style="background:linear-gradient(135deg,#0a1628 0%,#112240 100%)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <!-- Source -->
+          <rect x="20" y="55" width="70" height="50" rx="4" fill="rgba(44,82,130,.25)" stroke="rgba(74,144,217,.45)" stroke-width="1.5"/>
+          <text x="55" y="76" text-anchor="middle" fill="#c5cfe0" font-family="DM Mono,monospace" font-size="9" font-weight="600">SOURCE</text>
+          <text x="55" y="89" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">192.168.1.1</text>
+          <text x="55" y="99" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">ICMP Echo</text>
+          <!-- Destination -->
+          <rect x="230" y="55" width="70" height="50" rx="4" fill="rgba(46,125,82,.2)" stroke="rgba(46,125,82,.5)" stroke-width="1.5"/>
+          <text x="265" y="76" text-anchor="middle" fill="#2ecc71" font-family="DM Mono,monospace" font-size="9" font-weight="600">TARGET</text>
+          <text x="265" y="89" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">8.8.8.8</text>
+          <text x="265" y="99" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">ICMP Reply</text>
+          <!-- Request arrow -->
+          <line x1="92" y1="72" x2="228" y2="72" stroke="rgba(200,146,42,.7)" stroke-width="1.5" marker-end="url(#a4)"/>
+          <text x="160" y="66" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="8">Echo Request (Type 8)</text>
+          <!-- Reply arrow -->
+          <line x1="228" y1="88" x2="92" y2="88" stroke="rgba(46,125,82,.7)" stroke-width="1.5" marker-end="url(#a5)"/>
+          <text x="160" y="101" text-anchor="middle" fill="#2ecc71" font-family="DM Mono,monospace" font-size="8">Echo Reply (Type 0)</text>
+          <!-- Stats boxes -->
+          <rect x="20" y="118" width="64" height="28" rx="3" fill="rgba(200,146,42,.1)" stroke="rgba(200,146,42,.3)" stroke-width="1"/>
+          <text x="52" y="130" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="7">RTT: 12ms</text>
+          <text x="52" y="140" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">Round Trip</text>
+          <rect x="94" y="118" width="64" height="28" rx="3" fill="rgba(44,82,130,.2)" stroke="rgba(74,144,217,.3)" stroke-width="1"/>
+          <text x="126" y="130" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">TTL: 64</text>
+          <text x="126" y="140" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">Time To Live</text>
+          <rect x="168" y="118" width="64" height="28" rx="3" fill="rgba(46,125,82,.15)" stroke="rgba(46,125,82,.3)" stroke-width="1"/>
+          <text x="200" y="130" text-anchor="middle" fill="#2ecc71" font-family="DM Mono,monospace" font-size="7">0% Loss</text>
+          <text x="200" y="140" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">Packet Loss</text>
+          <rect x="242" y="118" width="64" height="28" rx="3" fill="rgba(192,57,43,.15)" stroke="rgba(192,57,43,.3)" stroke-width="1"/>
+          <text x="274" y="130" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7">Seq: 1–4</text>
+          <text x="274" y="140" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">Sequence No.</text>
+          <!-- Ping label top -->
+          <text x="160" y="22" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12" font-weight="600">ICMP Echo Request / Reply</text>
+          <text x="160" y="37" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Protocol: ICMP · IP Header · Sequence Number · Payload</text>
+          <defs>
+            <marker id="a4" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(200,146,42,.8)"/></marker>
+            <marker id="a5" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(46,125,82,.8)"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">Network Protocols · ICMP</div>
+        <div class="ig-card-title">Understanding PING — ICMP Echo Request &amp; Reply</div>
+        <div class="ig-card-desc">Visual breakdown of how PING works — ICMP packet structure (Type 8/0), TTL, sequence numbers, RTT measurement, and interpreting ping output for network diagnostics.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">PING</span><span class="ig-card-tag">ICMP</span><span class="ig-card-tag">TTL</span>
+          <span class="ig-card-tag">RTT</span><span class="ig-card-tag">Packet Loss</span>
+        </div>
+        <div class="ig-card-cta">View Infographic</div>
+      </div>
+    </a>
+
+    <!-- Card 5: Network Basics -->
+    <a href="network_basics_infographic.html" target="_blank" class="ig-card reveal">
+      <div class="ig-card-thumb" style="background:linear-gradient(135deg,#0a1628 0%,#0e1f3a 100%)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <!-- Road/highway analogy visual -->
+          <!-- Road -->
+          <rect x="20" y="68" width="280" height="24" fill="rgba(44,82,130,.2)" stroke="rgba(44,82,130,.4)" stroke-width="1"/>
+          <line x1="20" y1="80" x2="300" y2="80" stroke="rgba(200,146,42,.4)" stroke-width="1" stroke-dasharray="12,6"/>
+          <!-- Lanes label -->
+          <text x="160" y="77" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="8">BANDWIDTH — Highway Lanes</text>
+          <text x="160" y="88" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="7">More lanes = More simultaneous data</text>
+          <!-- Concept badges -->
+          <rect x="20" y="108" width="52" height="34" rx="3" fill="rgba(200,146,42,.12)" stroke="rgba(200,146,42,.35)" stroke-width="1"/>
+          <text x="46" y="122" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="7" font-weight="700">Latency</text>
+          <text x="46" y="133" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">Travel time</text>
+          <rect x="80" y="108" width="52" height="34" rx="3" fill="rgba(44,82,130,.2)" stroke="rgba(74,144,217,.35)" stroke-width="1"/>
+          <text x="106" y="122" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7" font-weight="700">Packets</text>
+          <text x="106" y="133" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">Data chunks</text>
+          <rect x="140" y="108" width="52" height="34" rx="3" fill="rgba(44,82,130,.2)" stroke="rgba(74,144,217,.35)" stroke-width="1"/>
+          <text x="166" y="122" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7" font-weight="700">Routers</text>
+          <text x="166" y="133" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">Traffic dir.</text>
+          <rect x="200" y="108" width="52" height="34" rx="3" fill="rgba(192,57,43,.12)" stroke="rgba(192,57,43,.35)" stroke-width="1"/>
+          <text x="226" y="122" text-anchor="middle" fill="#e74c3c" font-family="DM Mono,monospace" font-size="7" font-weight="700">Congestion</text>
+          <text x="226" y="133" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">Bottleneck</text>
+          <rect x="260" y="108" width="52" height="34" rx="3" fill="rgba(46,125,82,.12)" stroke="rgba(46,125,82,.35)" stroke-width="1"/>
+          <text x="286" y="122" text-anchor="middle" fill="#2ecc71" font-family="DM Mono,monospace" font-size="7" font-weight="700">Throughput</text>
+          <text x="286" y="133" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="6">Actual rate</text>
+          <!-- Top label -->
+          <text x="160" y="22" text-anchor="middle" fill="#c5cfe0" font-family="DM Sans,sans-serif" font-size="12" font-weight="600">The Internet as a Road System</text>
+          <text x="160" y="36" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">8 core networking concepts with real-world analogies</text>
+          <!-- Protocol badges top right -->
+          <rect x="220" y="44" width="36" height="14" rx="2" fill="rgba(200,146,42,.15)" stroke="rgba(200,146,42,.4)" stroke-width="1"/>
+          <text x="238" y="54" text-anchor="middle" fill="#c8922a" font-family="DM Mono,monospace" font-size="7">TCP/IP</text>
+          <rect x="260" y="44" width="36" height="14" rx="2" fill="rgba(44,82,130,.2)" stroke="rgba(74,144,217,.4)" stroke-width="1"/>
+          <text x="278" y="54" text-anchor="middle" fill="#4a90d9" font-family="DM Mono,monospace" font-size="7">HTTP/S</text>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">Networking Fundamentals · Education</div>
+        <div class="ig-card-title">Understanding Network Basics — Road System Analogy</div>
+        <div class="ig-card-desc">8 core networking concepts explained through the "Internet as a road system" analogy — Bandwidth, Latency, Packets, Routers, Congestion, Signal Quality, Throughput, and Protocols.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">Bandwidth</span><span class="ig-card-tag">Latency</span><span class="ig-card-tag">TCP/IP</span>
+          <span class="ig-card-tag">OSI Model</span><span class="ig-card-tag">DNS</span>
+        </div>
+        <div class="ig-card-cta">View Infographic</div>
+      </div>
+    </a>
+
+    <!-- Card 6: Coming Soon placeholder -->
+    <div class="ig-card reveal" style="opacity:.6;cursor:default;border-style:dashed">
+      <div class="ig-card-thumb" style="background:rgba(255,255,255,.02)">
+        <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="160" fill="none"/>
+          <circle cx="160" cy="75" r="30" fill="none" stroke="rgba(200,146,42,.25)" stroke-width="2" stroke-dasharray="6,4"/>
+          <text x="160" y="71" text-anchor="middle" fill="rgba(200,146,42,.5)" font-family="DM Mono,monospace" font-size="28">+</text>
+          <text x="160" y="120" text-anchor="middle" fill="rgba(200,146,42,.4)" font-family="DM Mono,monospace" font-size="10" letter-spacing="2">COMING SOON</text>
+          <text x="160" y="136" text-anchor="middle" fill="#8a9bb5" font-family="DM Mono,monospace" font-size="8">Next infographic in progress</text>
+        </svg>
+      </div>
+      <div class="ig-card-body">
+        <div class="ig-card-category">In Progress</div>
+        <div class="ig-card-title">More Infographics Coming</div>
+        <div class="ig-card-desc">New technical infographics on BGP routing, Azure vWAN architecture, Zero Trust frameworks, and more — publishing regularly on LinkedIn and Hashnode.</div>
+        <div class="ig-card-tags">
+          <span class="ig-card-tag">BGP</span><span class="ig-card-tag">Azure vWAN</span><span class="ig-card-tag">Zero Trust</span>
+        </div>
+        <div class="ig-card-cta" style="color:var(--gray)">Stay Tuned</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- BLOG -->
 <section id="blog">
-  <div class="section-header reveal"><span class="section-tag">05 / Writing</span><div class="section-line"></div></div>
+  <div class="section-header reveal"><span class="section-tag">06 / Writing</span><div class="section-line"></div></div>
   <h2 class="section-title reveal" style="margin-bottom:2.5rem">From the Blog</h2>
   <div class="blog-grid">
     <a href="https://venkatesh.hashnode.dev" target="_blank" class="blog-card featured reveal">
@@ -694,7 +1089,7 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <p class="contact-tag">06 / Contact</p>
+  <p class="contact-tag">07 / Contact</p>
   <h2 class="contact-title reveal">Let's Build Something Secure</h2>
   <p class="contact-sub reveal">Open to senior architecture, transformation leadership, and advisory engagements across cloud, network, and security domains.</p>
   <div class="contact-links reveal">
@@ -702,7 +1097,7 @@
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
       LinkedIn Profile
     </a>
-    <a href="mailto:venkatesh@example.com" class="contact-link">
+    <a href="/cdn-cgi/l/email-protection#c1b7a4afaaa0b5a4b2a981a4b9a0acb1ada4efa2aeac" class="contact-link">
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5"/></svg>
       Send Email
     </a>
@@ -722,7 +1117,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
@@ -755,11 +1150,4 @@
             if(cw>=tw) clearInterval(t);
           }, 18);
         });
-        barObs.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.25});
-  document.querySelectorAll('.ig-box').forEach(el => barObs.observe(el));
-</script>
-</body>
-</html>
+        barObs.unobserve(en
