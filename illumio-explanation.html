@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Illumio — Architecture Explained</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #071535;
+  --blue-dark: #0d2a6e;
+  --blue-mid:  #1565c0;
+  --blue-sky:  #42a5f5;
+  --gold:      #f5a623;
+  --gold-soft: #ffd080;
+  --teal:      #1D9E75;
+  --red-soft:  #e55a4e;
+  --white:     #ffffff;
+  --off-white: #e8f0fc;
+  --muted:     #7aabda;
+  --card-bg:   rgba(13,42,110,0.55);
+  --border:    rgba(100,180,255,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(160deg, #040e24 0%, #071535 40%, #0d2a6e 100%);
+  min-height: 100vh;
+  color: var(--white);
+  padding: 0;
+}
+
+/* ── PAGE WRAPPER ── */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #040e24 0%, #071535 60%, #0d2a6e 100%);
+  border-bottom: 3px solid var(--gold);
+  padding: 52px 48px 42px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 300px 120px at 90% 30%, rgba(66,165,245,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 200px 80px at 10% 70%, rgba(66,165,245,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(245,166,35,0.15);
+  border: 1px solid rgba(245,166,35,0.4);
+  color: var(--gold);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.hero h1 span { color: var(--gold); }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-bottom: 28px;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.hero-quote {
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid var(--blue-sky);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--off-white);
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 0 48px;
+  margin-top: 48px;
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section:nth-child(2) { animation-delay: 0.05s; }
+.section:nth-child(3) { animation-delay: 0.10s; }
+.section:nth-child(4) { animation-delay: 0.15s; }
+.section:nth-child(5) { animation-delay: 0.20s; }
+.section:nth-child(6) { animation-delay: 0.25s; }
+.section:nth-child(7) { animation-delay: 0.30s; }
+.section:nth-child(8) { animation-delay: 0.35s; }
+
+/* ── SECTION HEADER ── */
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.sec-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.sec-icon.blue   { background: rgba(21,101,192,0.35); border: 1px solid rgba(66,165,245,0.35); }
+.sec-icon.gold   { background: rgba(245,166,35,0.2);  border: 1px solid rgba(245,166,35,0.35); }
+.sec-icon.teal   { background: rgba(29,158,117,0.25); border: 1px solid rgba(29,158,117,0.35); }
+.sec-icon.red    { background: rgba(229,90,78,0.2);   border: 1px solid rgba(229,90,78,0.35); }
+.sec-icon.purple { background: rgba(103,58,183,0.25); border: 1px solid rgba(149,117,205,0.35); }
+
+.sec-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.sec-ref {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+/* ── MAIN QUOTE CARD ── */
+.main-quote {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--off-white);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.main-quote::before {
+  content: '"';
+  position: absolute;
+  top: -8px; left: 18px;
+  font-size: 56px;
+  color: var(--blue-sky);
+  opacity: 0.35;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* ── POINT CARDS GRID ── */
+.points-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.point-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.point-card:hover {
+  border-color: rgba(66,165,245,0.4);
+  background: rgba(13,42,110,0.75);
+}
+
+.point-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pi-blue   { background: rgba(21,101,192,0.3);  border: 1px solid rgba(66,165,245,0.25); }
+.pi-gold   { background: rgba(245,166,35,0.2);   border: 1px solid rgba(245,166,35,0.25); }
+.pi-teal   { background: rgba(29,158,117,0.22);  border: 1px solid rgba(29,158,117,0.3); }
+.pi-red    { background: rgba(229,90,78,0.18);   border: 1px solid rgba(229,90,78,0.3); }
+.pi-purple { background: rgba(103,58,183,0.22);  border: 1px solid rgba(149,117,205,0.3); }
+
+.point-body { flex: 1; }
+
+.point-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 5px;
+  letter-spacing: 0.3px;
+}
+
+.point-text {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.point-text em {
+  color: var(--off-white);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── STEP FLOW ── */
+.steps-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step-row {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.step-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.step-num-circle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sn1 { background: rgba(66,165,245,0.25); border: 2px solid var(--blue-sky); color: var(--blue-sky); }
+.sn2 { background: rgba(103,58,183,0.25); border: 2px solid #9575cd; color: #ce93d8; }
+.sn3 { background: rgba(245,166,35,0.2);  border: 2px solid var(--gold); color: var(--gold); }
+.sn4 { background: rgba(29,158,117,0.22); border: 2px solid var(--teal); color: #5DCAA5; }
+
+.step-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, rgba(66,165,245,0.3) 0%, rgba(66,165,245,0.05) 100%);
+  margin: 4px 0;
+  min-height: 20px;
+}
+
+.step-row:last-child .step-line { display: none; }
+
+.step-content {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 0 0 12px 12px;
+  backdrop-filter: blur(4px);
+}
+
+.step-content-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 5px;
+}
+
+.step-content-text {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.step-content-text em {
+  color: var(--off-white);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── WORKLOAD GRID ── */
+.workload-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.workload-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 16px;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s;
+}
+
+.workload-card:hover { border-color: rgba(66,165,245,0.4); }
+
+.wc-icon { font-size: 26px; margin-bottom: 10px; }
+
+.wc-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.wc-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── LABEL PILLS ── */
+.label-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.label-pill {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  backdrop-filter: blur(4px);
+}
+
+.lp-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.lp-body {}
+
+.lp-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.lp-example {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.label-note {
+  background: rgba(245,166,35,0.08);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-size: 13.5px;
+  color: var(--off-white);
+  line-height: 1.7;
+}
+
+/* ── BENEFITS STRIP ── */
+.benefits-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.benefit-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.ben-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 12px;
+}
+
+.bc-red    { background: rgba(229,90,78,0.2);  border: 2px solid rgba(229,90,78,0.4); }
+.bc-blue   { background: rgba(21,101,192,0.25); border: 2px solid rgba(66,165,245,0.4); }
+.bc-teal   { background: rgba(29,158,117,0.22); border: 2px solid rgba(29,158,117,0.4); }
+
+.ben-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 7px;
+  line-height: 1.3;
+}
+
+.ben-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(66,165,245,0.2), transparent);
+  margin: 0 48px;
+  margin-top: 48px;
+}
+
+/* ── CLOSER ── */
+.closer {
+  padding: 36px 48px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: rgba(21,101,192,0.08);
+  border-top: 1px solid rgba(66,165,245,0.15);
+  margin-top: 48px;
+  padding-top: 36px;
+}
+
+.closer-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.closer-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.closer-text {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.closer-text strong {
+  color: var(--off-white);
+  font-weight: 600;
+}
+
+/* ── TAGS ── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 28px 48px 0;
+}
+
+.tag {
+  background: rgba(21,101,192,0.2);
+  border: 1px solid rgba(66,165,245,0.25);
+  color: var(--blue-sky);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 20px;
+}
+
+/* ── HIGHLIGHT INLINE ── */
+.hl { color: var(--gold); font-weight: 600; font-style: normal; }
+.hl-blue { color: var(--blue-sky); font-weight: 600; font-style: normal; }
+.hl-teal { color: #5DCAA5; font-weight: 600; font-style: normal; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-tag">Network & Security Architecture · Zero Trust</div>
+    <h1>Understanding <span>Illumio</span></h1>
+    <p class="hero-sub">A practitioner's walkthrough of Zero Trust Micro-Segmentation — how it works, why it matters, and how to roll it out in a real hybrid environment.</p>
+    <div class="hero-quote">
+      Managing enterprise firewalls taught me one hard truth — you can lock the front door perfectly and still have no idea what's moving around inside. That's the east-west blind spot. Here's how Illumio solves it.
+    </div>
+  </div>
+
+  <!-- ══ 1. WHAT ILLUMIO ENFORCES ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon gold">🏷️</div>
+      <div>
+        <div class="sec-title">What Illumio Enforces</div>
+        <div class="sec-ref">Left panel of the infographic</div>
+      </div>
+    </div>
+
+    <div class="points-grid">
+
+      <div class="point-card">
+        <div class="point-icon pi-blue">🏷️</div>
+        <div class="point-body">
+          <div class="point-title">Label-Based Policy — Not IP Addresses</div>
+          <div class="point-text">In traditional firewalls, rules are written against IP addresses. The moment a workload migrates or gets re-IP'd, the rule breaks. Illumio tags every server with <em>Environment · Application · Role · Location</em>. The policy is written once against those tags — it follows the workload regardless of IP. New server tagged correctly? It inherits the right rules within seconds, with no firewall change ticket raised.</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-icon pi-teal">↔️</div>
+        <div class="point-body">
+          <div class="point-title">East-West Micro-Segmentation — The Real Gap</div>
+          <div class="point-text">The perimeter firewall sits at the DC edge — great for north-south traffic from outside to inside. But if an attacker or ransomware moves <em>laterally between servers inside the same VLAN</em>, the perimeter firewall never sees it. Illumio's Virtual Enforcement Node (VEN) programs the OS firewall directly on each individual workload. There is no network path that bypasses it.</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-icon pi-red">🔒</div>
+        <div class="point-body">
+          <div class="point-title">Deny by Default — Zero Trust Made Operational</div>
+          <div class="point-text">Every connection is blocked unless an <em>explicit allow rule matches both the source and destination labels</em>. No label match — no access, full stop. This is not a theoretical Zero Trust model. It is enforced at the OS firewall level on every workload, simultaneously, across every environment.</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-icon pi-purple">🌐</div>
+        <div class="point-body">
+          <div class="point-title">Multi-Cloud and On-Premises — One Policy Plane</div>
+          <div class="point-text">Workloads split across DC-A, DC-B, cloud environments, and containers are all governed by a <em>single Policy Compute Engine</em>. No more stitching together perimeter firewall logs, cloud flow logs, and SDN firewall rules in your SIEM just to answer the question: what is talking to what?</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 2. PCE ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon blue">🖥️</div>
+      <div>
+        <div class="sec-title">Policy Compute Engine (PCE) — The Central Brain</div>
+        <div class="sec-ref">Top-right of the infographic</div>
+      </div>
+    </div>
+    <div class="main-quote">
+      Think of the PCE like Panorama in the Palo Alto world — the central brain. But instead of pushing rules to a firewall appliance, it pushes OS-level firewall rules down to every Virtual Enforcement Node on every workload. It also collects flow telemetry from every VEN and builds the Illumination Map — a real-time dependency graph of every connection in your environment. Before any migration or segmentation project, this map alone saves weeks of manual discovery work.
+    </div>
+    <div class="point-card">
+      <div class="point-icon pi-gold">⚡</div>
+      <div class="point-body">
+        <div class="point-title">Step 2 — Policy Computed and Pushed</div>
+        <div class="point-text">The PCE takes label-based rules — for example, <em>"allow Role:AppServer to reach Role:Database on port 1433"</em> — translates them into actual iptables or Windows Firewall rules, and pushes them to every workload that matches those labels. When a new server is onboarded and tagged correctly, it receives the right rules within seconds. No manual change request, no ticket, no delay.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 3. FLOW ZONE ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon teal">🔄</div>
+      <div>
+        <div class="sec-title">The Flow — How a Connection Is Enforced</div>
+        <div class="sec-ref">Middle flow zone of the infographic</div>
+      </div>
+    </div>
+    <div class="main-quote">
+      The Virtual Enforcement Node is a lightweight userspace agent — it does not sit in the network path like a firewall appliance. It programs the OS firewall directly on each workload. When a connection is attempted, the OS itself allows or drops it based on the rules the VEN has installed. The VEN also streams flow telemetry back to the PCE continuously — every allowed and blocked connection is visible in real time.
+    </div>
+    <div class="points-grid">
+      <div class="point-card">
+        <div class="point-icon pi-blue">1️⃣</div>
+        <div class="point-body">
+          <div class="point-title">Step 1 — "Need Access!" (Connection Request)</div>
+          <div class="point-text">A normal TCP connection attempt from one workload to another. The source workload has no knowledge of the policy — it simply initiates the connection as it always would.</div>
+        </div>
+      </div>
+      <div class="point-card">
+        <div class="point-icon pi-gold">4️⃣</div>
+        <div class="point-body">
+          <div class="point-title">Step 4 — "Access Granted — Policy Matched"</div>
+          <div class="point-text">The OS firewall on the destination workload has a matching iptables rule — the connection goes through. If there is no matching rule, the packet is <em>silently dropped</em>. No ICMP unreachable message, no TCP RST. The connection simply disappears — the attacker gets no information about what exists behind the policy boundary.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 4. FOUR STEPS ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon gold">📋</div>
+      <div>
+        <div class="sec-title">The Four-Step Rollout — Discover · Compute · Enforce · Illuminate</div>
+        <div class="sec-ref">Step-flow strip of the infographic</div>
+      </div>
+    </div>
+
+    <div class="steps-flow">
+
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle sn1">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-content-title">Discover — Map Before You Block</div>
+          <div class="step-content-text">VENs are deployed in <em>visibility mode only — no blocking</em>. For 3 to 4 weeks, the PCE builds a complete map of every flow across the environment. This always uncovers undocumented connections — services talking to shared infrastructure, legacy integrations, monitoring agents — that would have broken if enforcement had been applied blindly. This phase alone is the most valuable investment in the entire rollout.</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle sn2">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-content-title">Compute — Write Rules Once, Cover Everything</div>
+          <div class="step-content-text">Once the flow baseline is solid, label-based policies are written in the PCE. One rule — for example, <em>"allow Env:Production + App:X + Role:AppServer → Role:Database on port 1433"</em> — covers every matching workload across DC-A, DC-B, and cloud, present and future. The PCE computes the exact OS firewall rules for each workload that matches.</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle sn3">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-content-title">Enforce — Tier by Tier, Test Before Block</div>
+          <div class="step-content-text">Workloads are moved from visibility mode into <em>test mode first</em> — simulated blocking, everything logged, nothing actually dropped. Once the "potentially blocked" list is reviewed and cleared, full enforcement is activated. The sequence: database servers first (highest value target), then application tier, then web tier. Never flip the entire environment at once.</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle sn4">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-content-title">Illuminate — Live Traffic Map, Every Morning</div>
+          <div class="step-content-text">The Illumination Map from the PCE shows every connection in real time. <em>Green = allowed · Amber = potentially blocked · Red = blocked</em>. The amber list is the daily review during any active segmentation rollout — it shows what would break if enforcement were tightened. This is the operational dashboard that replaces stitching together logs from three different tools.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 5. VEN WORKLOADS ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon teal">⚙️</div>
+      <div>
+        <div class="sec-title">Virtual Enforcement Node — On Every Workload</div>
+        <div class="sec-ref">VEN workloads section of the infographic</div>
+      </div>
+    </div>
+    <div class="main-quote" style="margin-bottom:20px;">
+      The VEN is not a network device. There is no appliance to rack, no network change to raise, no traffic to redirect. It is a lightweight agent that runs in userspace and programs the existing OS firewall — iptables on Linux, Windows Firewall Policy on Windows. The network team does not need to be involved at deployment time.
+    </div>
+    <div class="workload-grid">
+      <div class="workload-card">
+        <div class="wc-icon">🖥️</div>
+        <div class="wc-title">Bare Metal Servers</div>
+        <div class="wc-text">Physical servers in DC-A and DC-B. VEN installs directly on the OS, programs iptables on Linux or Windows Firewall Policy on Windows. No network change required. Works across Red Hat, Ubuntu, and Windows Server.</div>
+      </div>
+      <div class="workload-card">
+        <div class="wc-icon">☁️</div>
+        <div class="wc-title">Cloud Virtual Machines</div>
+        <div class="wc-text">For cloud environments, VEN runs on each VM and also synchronises rules into the native cloud security groups — Azure NSGs or AWS Security Groups. Double enforcement at both OS level and cloud network layer.</div>
+      </div>
+      <div class="workload-card">
+        <div class="wc-icon">🐳</div>
+        <div class="wc-title">Kubernetes Containers</div>
+        <div class="wc-text">Kubelink is the Kubernetes-native integration. It maps Illumio labels to namespaces and enforces policy at pod level. Same single policy plane as bare metal and cloud — no separate Kubernetes network policy tool needed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 6. LABEL MODEL ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon gold">🏷️</div>
+      <div>
+        <div class="sec-title">The Label Model — Four Dimensions, Infinite Scale</div>
+        <div class="sec-ref">Label pills section of the infographic</div>
+      </div>
+    </div>
+    <div class="main-quote" style="margin-bottom:20px;">
+      This is the first thing to draw on a whiteboard when explaining Illumio. Four labels, four dimensions. Every workload gets all four. Policy rules reference label combinations — not individual servers, not IP addresses, not hostnames. One rule covers every server that matches those labels, today and in the future.
+    </div>
+    <div class="label-grid">
+      <div class="label-pill">
+        <div class="lp-dot" style="background:#42a5f5;"></div>
+        <div class="lp-body">
+          <div class="lp-name">Environment</div>
+          <div class="lp-example">Production · Development · QA · Disaster Recovery</div>
+        </div>
+      </div>
+      <div class="label-pill">
+        <div class="lp-dot" style="background:#f5a623;"></div>
+        <div class="lp-body">
+          <div class="lp-name">Application</div>
+          <div class="lp-example">App-X · App-Y · Billing · Monitoring · Infra</div>
+        </div>
+      </div>
+      <div class="label-pill">
+        <div class="lp-dot" style="background:#4caf50;"></div>
+        <div class="lp-body">
+          <div class="lp-name">Role</div>
+          <div class="lp-example">Web Server · Application Server · Database · Auth</div>
+        </div>
+      </div>
+      <div class="label-pill">
+        <div class="lp-dot" style="background:#ce93d8;"></div>
+        <div class="lp-body">
+          <div class="lp-name">Location</div>
+          <div class="lp-example">DC-A · DC-B · Cloud-Region · Kubernetes-Cluster</div>
+        </div>
+      </div>
+    </div>
+    <div class="label-note">
+      A database server in DC-A gets: <strong style="color:var(--gold)">Env:Production · App:X · Role:Database · Loc:DC-A</strong>. The policy rule says allow Role:AppServer to reach Role:Database on the required port, within the same Environment and Application. That single rule covers every app server across DC-A, DC-B, and cloud — present and future. New server tagged correctly, inherits policy automatically. No firewall change ticket raised.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 7. BENEFITS ══ -->
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-icon red">🛡️</div>
+      <div>
+        <div class="sec-title">Why It Matters — Three Operational Wins</div>
+        <div class="sec-ref">Benefits strip of the infographic</div>
+      </div>
+    </div>
+    <div class="benefits-row">
+      <div class="benefit-card">
+        <div class="ben-circle bc-red">🛡️</div>
+        <div class="ben-title">Stops Ransomware Lateral Movement</div>
+        <div class="ben-text">Even if a server is compromised, the attacker has no network path to the next tier. The OS firewall on every destination workload drops connections from unlabeled or wrong-label sources before the packet reaches the application. The blast radius of any breach is contained to the single workload.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="ben-circle bc-blue">🔐</div>
+        <div class="ben-title">Zero Trust Made Operationally Real</div>
+        <div class="ben-text">VLAN segmentation and ACLs have been the attempted path to Zero Trust for years. Illumio makes it operationally achievable. The default is deny, every allow is explicit, and every allow is auditable — with a full audit trail of which label rule permitted which connection.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="ben-circle bc-teal">🌐</div>
+        <div class="ben-title">One Policy Plane — Hybrid and Multi-Cloud</div>
+        <div class="ben-text">DC-A, DC-B, cloud environments, containers — one Policy Compute Engine, one Illumination Map, one place to audit. No more stitching together perimeter firewall logs, cloud flow logs, and SDN logs in the SIEM to answer the most basic question: what is talking to what?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CLOSER ══ -->
+  <div class="closer">
+    <div class="closer-icon">💡</div>
+    <div>
+      <div class="closer-title">The One-Line Summary</div>
+      <div class="closer-text">
+        <strong>Illumio does not replace your perimeter firewall. It completes it.</strong><br><br>
+        The perimeter firewall guards the gate — inspecting what comes in and goes out. Illumio guards everything that happens behind that gate. Together they cover both planes: north-south at the perimeter, east-west at every workload. That combination is what a mature Zero Trust architecture actually looks like in production.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAGS ══ -->
+  <div class="tags">
+    <span class="tag">#ZeroTrust</span>
+    <span class="tag">#MicroSegmentation</span>
+    <span class="tag">#NetworkSecurity</span>
+    <span class="tag">#Illumio</span>
+    <span class="tag">#CyberSecurity</span>
+    <span class="tag">#CloudSecurity</span>
+    <span class="tag">#DataCentre</span>
+    <span class="tag">#EnterpriseNetworking</span>
+    <span class="tag">#EastWestSecurity</span>
+    <span class="tag">#VirtualEnforcementNode</span>
+  </div>
+
+</div>
+</body>
+</html>
