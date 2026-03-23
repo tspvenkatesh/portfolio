@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIEM & SOAR — Cybersecurity Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060a0f;
+  --surface: #0b1017;
+  --card: #0f1922;
+  --border: #162030;
+  --border2: #1e3048;
+  --siem: #00c8ff;
+  --siem2: #0090cc;
+  --soar: #ff5e1a;
+  --soar2: #c43d00;
+  --green: #00ff88;
+  --yellow: #ffd600;
+  --purple: #b86aff;
+  --text: #8eb8d8;
+  --text2: #c8dff0;
+  --muted: #3a6080;
+  --white: #e8f4ff;
+  --mono: 'Share Tech Mono', monospace;
+  --sans: 'Rajdhani', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scanline effect */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.07) 2px,
+    rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Grid bg */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+/* ── HEADER ── */
+.hdr {
+  padding: 56px 0 48px;
+  text-align: center;
+  position: relative;
+}
+
+.hdr-line {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px;
+}
+.hdr-line::before, .hdr-line::after {
+  content: ''; height: 1px; width: 60px; background: var(--border2);
+}
+
+.hdr h1 {
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(42px, 8vw, 80px);
+  letter-spacing: -1px; line-height: 1;
+  color: var(--white);
+}
+
+.hdr h1 .s1 { color: var(--siem); text-shadow: 0 0 30px rgba(0,200,255,0.4); }
+.hdr h1 .amp { color: var(--muted); margin: 0 6px; }
+.hdr h1 .s2 { color: var(--soar); text-shadow: 0 0 30px rgba(255,94,26,0.4); }
+
+.hdr-sub {
+  margin-top: 16px; font-family: var(--mono); font-size: 13px;
+  color: var(--muted); letter-spacing: 1px;
+}
+
+.hdr-pills {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin-top: 28px;
+}
+.hdr-pill {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 1px;
+  padding: 5px 14px; border: 1px solid var(--border2);
+  border-radius: 2px; color: var(--muted);
+}
+
+/* ── SECTION COMMON ── */
+.section { margin-bottom: 64px; }
+.sec-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;
+}
+.sec-h {
+  font-size: 26px; font-weight: 700; color: var(--white);
+  margin-bottom: 28px; letter-spacing: 0.5px;
+}
+
+/* ── WHY CARDS ── */
+.why-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-bottom: 28px;
+}
+@media(max-width:650px){ .why-grid { grid-template-columns: 1fr; } }
+
+.why-card {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 28px 24px;
+  position: relative; overflow: hidden;
+  animation: fadeUp .5s ease both;
+  transition: border-color .25s, transform .2s;
+}
+.why-card:hover { transform: translateY(-3px); }
+.why-card.sc { border-top: 2px solid var(--siem); }
+.why-card.oc { border-top: 2px solid var(--soar); }
+
+.why-card::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 130px; height: 130px; border-radius: 50%;
+  opacity: .04;
+}
+.why-card.sc::before { background: var(--siem); }
+.why-card.oc::before { background: var(--soar); }
+
+.wc-icon { font-size: 30px; margin-bottom: 14px; display: block; }
+.wc-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.wc-full { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; }
+.sc .wc-title { color: var(--siem); }
+.oc .wc-title { color: var(--soar); }
+.wc-desc { font-size: 14px; line-height: 1.75; color: var(--text); }
+
+.wc-features { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.feat {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 14px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 2px;
+  font-size: 13px; line-height: 1.5;
+}
+.feat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.sc .feat-dot { background: var(--siem); }
+.oc .feat-dot { background: var(--soar); }
+.feat strong { color: var(--text2); }
+
+/* ── WHY NEED SECTION ── */
+.why-need {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 28px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media(max-width:650px){ .why-need { grid-template-columns: 1fr; } }
+
+.need-item { text-align: center; }
+.need-icon { font-size: 28px; display: block; margin-bottom: 10px; }
+.need-stat { font-size: 32px; font-weight: 700; color: var(--white); font-family: var(--mono); }
+.need-stat span { font-size: 16px; color: var(--muted); }
+.need-label { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+.need-desc { font-size: 13px; color: var(--text); margin-top: 8px; line-height: 1.5; }
+
+/* ── FLOW DIAGRAM ── */
+.flow-wrap {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 36px 24px; overflow-x: auto;
+}
+.flow {
+  display: flex; align-items: center; justify-content: flex-start;
+  min-width: 740px; gap: 0;
+}
+.fn {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 14px 16px;
+  text-align: center; flex-shrink: 0; min-width: 108px;
+  transition: border-color .2s;
+}
+.fn:hover { border-color: var(--siem); }
+.fn-ico { font-size: 22px; display: block; margin-bottom: 6px; }
+.fn-lbl { font-size: 12px; font-weight: 700; color: var(--white); }
+.fn-sub { font-size: 10px; font-family: var(--mono); color: var(--muted); margin-top: 3px; }
+.fn.fns { border-color: rgba(0,200,255,.4); }
+.fn.fno { border-color: rgba(255,94,26,.4); }
+.fn.fns .fn-lbl { color: var(--siem); }
+.fn.fno .fn-lbl { color: var(--soar); }
+.arrow { color: var(--muted); font-size: 22px; padding: 0 6px; flex-shrink: 0; }
+.fork { display: flex; flex-direction: column; gap: 10px; }
+.fork .fn { min-width: 92px; }
+
+.flow-legend {
+  display: flex; gap: 20px; margin-top: 20px;
+  justify-content: center; flex-wrap: wrap;
+}
+.leg { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── COMPARE TABLE ── */
+.comp-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 3px; overflow: hidden; font-size: 13px;
+  animation: fadeUp .5s ease .1s both;
+}
+.comp-table thead tr { background: var(--surface); }
+.comp-table th {
+  padding: 14px 20px; text-align: left;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border2);
+}
+.comp-table td {
+  padding: 14px 20px; border-bottom: 1px solid rgba(22,32,48,.8);
+  line-height: 1.55; vertical-align: top;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: rgba(0,200,255,.02); }
+.td-aspect { color: var(--white); font-weight: 700; }
+.td-siem { color: var(--siem); font-family: var(--mono); font-size: 12px; }
+.td-soar { color: var(--soar); font-family: var(--mono); font-size: 12px; }
+
+/* ── EXAMPLES TABS ── */
+.tab-bar {
+  display: flex; gap: 3px; margin-bottom: 0;
+  border-bottom: 1px solid var(--border2);
+  overflow-x: auto; padding-bottom: 0;
+}
+.tb {
+  background: none; border: none;
+  padding: 11px 18px 13px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  letter-spacing: .5px;
+}
+.tb:hover { color: var(--text2); }
+.tb.on { color: var(--siem); border-bottom-color: var(--siem); }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.ex-card {
+  background: var(--card); border: 1px solid var(--border2);
+  border-top: none; border-radius: 0 0 3px 3px; overflow: hidden;
+}
+
+.ex-hdr {
+  padding: 20px 24px; border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; gap: 14px;
+}
+.ex-ico { font-size: 30px; flex-shrink: 0; }
+.ex-htxt .ex-title { font-size: 18px; font-weight: 700; color: var(--white); }
+.ex-htxt .ex-sub { font-size: 12px; font-family: var(--mono); color: var(--muted); margin-top: 3px; }
+.ex-tag {
+  margin-left: auto; font-family: var(--mono); font-size: 10px;
+  padding: 4px 12px; border-radius: 2px; flex-shrink: 0;
+  letter-spacing: 1px;
+}
+.tag-s { background: rgba(0,200,255,.1); color: var(--siem); border: 1px solid rgba(0,200,255,.3); }
+.tag-o { background: rgba(255,94,26,.1); color: var(--soar); border: 1px solid rgba(255,94,26,.3); }
+.tag-b { background: rgba(184,106,255,.1); color: var(--purple); border: 1px solid rgba(184,106,255,.3); }
+
+.ex-body { padding: 24px; }
+
+.scenario {
+  background: var(--surface); border-left: 3px solid var(--border2);
+  padding: 14px 18px; border-radius: 0 3px 3px 0;
+  font-size: 13px; line-height: 1.7; color: var(--text);
+  margin-bottom: 24px;
+}
+
+.steps-lbl {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+}
+
+.steps { display: flex; flex-direction: column; gap: 10px; }
+
+.step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 13px 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 2px; font-size: 13px; line-height: 1.65;
+  transition: border-color .2s;
+}
+.step:hover { border-color: var(--border2); }
+.step-tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  flex-shrink: 0; margin-top: 2px; letter-spacing: .5px;
+  padding: 2px 8px; border-radius: 2px; border: 1px solid;
+}
+.st-s { color: var(--siem); border-color: rgba(0,200,255,.3); background: rgba(0,200,255,.07); }
+.st-o { color: var(--soar); border-color: rgba(255,94,26,.3); background: rgba(255,94,26,.07); }
+.step-body strong { color: var(--white); }
+
+.outcome {
+  margin-top: 20px; padding: 14px 18px;
+  background: rgba(0,255,136,.05);
+  border: 1px solid rgba(0,255,136,.2);
+  border-radius: 2px; font-size: 13px; line-height: 1.7;
+}
+.outcome strong { color: var(--green); }
+
+/* ── TOOLS GRID ── */
+.tools-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+@media(max-width:650px){ .tools-grid { grid-template-columns: 1fr; } }
+
+.tools-card {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 3px; overflow: hidden;
+  animation: fadeUp .5s ease .15s both;
+}
+.tools-hdr {
+  padding: 14px 20px; border-bottom: 1px solid var(--border2);
+  font-weight: 700; font-size: 14px; letter-spacing: .5px;
+}
+.tools-hdr.sh { color: var(--siem); border-left: 3px solid var(--siem); }
+.tools-hdr.oh { color: var(--soar); border-left: 3px solid var(--soar); }
+
+.tool-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px; border-bottom: 1px solid rgba(22,32,48,.7);
+  transition: background .2s;
+}
+.tool-row:last-child { border-bottom: none; }
+.tool-row:hover { background: rgba(0,200,255,.03); }
+.tool-ico { font-size: 20px; flex-shrink: 0; }
+.tool-name { font-size: 14px; font-weight: 700; color: var(--white); }
+.tool-note { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border2);
+  padding: 28px 0; text-align: center;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); letter-spacing: 2px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.why-card:nth-child(1) { animation-delay: .05s; }
+.why-card:nth-child(2) { animation-delay: .15s; }
+
+.pulse {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); margin-right: 8px;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; } 50% { opacity: .2; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-line"><span><span class="pulse"></span>LIVE SECURITY OPS GUIDE</span></div>
+  <h1><span class="s1">SIEM</span><span class="amp">&</span><span class="s2">SOAR</span></h1>
+  <p class="hdr-sub">Security Intelligence · Orchestration · Automated Response</p>
+  <div class="hdr-pills">
+    <span class="hdr-pill">// Threat Detection</span>
+    <span class="hdr-pill">// Log Correlation</span>
+    <span class="hdr-pill">// Playbook Automation</span>
+    <span class="hdr-pill">// Incident Response</span>
+    <span class="hdr-pill">// Compliance</span>
+  </div>
+</header>
+
+<!-- WHY DO WE NEED THEM -->
+<section class="section">
+  <div class="sec-tag">// 01 — Why they exist</div>
+  <div class="sec-h">The Modern Threat Problem</div>
+
+  <div class="why-need" style="margin-bottom:28px;">
+    <div class="need-item">
+      <span class="need-icon">⚠️</span>
+      <div class="need-stat">4,000<span>/day</span></div>
+      <div class="need-label">Ransomware Attacks</div>
+      <div class="need-desc">Security teams are overwhelmed. Manual investigation of every alert is impossible.</div>
+    </div>
+    <div class="need-item">
+      <span class="need-icon">⏱️</span>
+      <div class="need-stat">207<span> days</span></div>
+      <div class="need-label">Avg. Breach Detection Time</div>
+      <div class="need-desc">Without correlation, attackers dwell inside networks for months undetected.</div>
+    </div>
+    <div class="need-item">
+      <span class="need-icon">🔔</span>
+      <div class="need-stat">10k<span>+</span></div>
+      <div class="need-label">Daily Alerts Per Analyst</div>
+      <div class="need-desc">Alert fatigue causes critical threats to be missed. Automation is essential.</div>
+    </div>
+  </div>
+
+  <div class="why-grid">
+    <!-- SIEM -->
+    <div class="why-card sc">
+      <span class="wc-icon">📡</span>
+      <div class="wc-title">SIEM</div>
+      <div class="wc-full">SECURITY INFORMATION &amp; EVENT MANAGEMENT</div>
+      <div class="wc-desc">
+        SIEM is the <strong style="color:var(--text2)">central nervous system</strong> of your SOC. It collects, normalises and correlates log data from every source — firewalls, endpoints, cloud, identity — and surfaces anomalies and threats in real time.
+        <br><br>
+        It answers: <em style="color:var(--siem)">"What is happening across my infrastructure?"</em>
+      </div>
+      <div class="wc-features">
+        <div class="feat"><div class="feat-dot"></div><div><strong>Log Aggregation</strong> — Collect logs from 100s of sources into one place</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Correlation Engine</strong> — Match events across sources to find attack patterns</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Real-Time Alerting</strong> — Fire alerts the moment thresholds are breached</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Dashboards & Reports</strong> — Visibility across the entire estate</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Compliance</strong> — PCI-DSS, HIPAA, ISO 27001 audit trails</div></div>
+      </div>
+    </div>
+
+    <!-- SOAR -->
+    <div class="why-card oc">
+      <span class="wc-icon">⚡</span>
+      <div class="wc-title">SOAR</div>
+      <div class="wc-full">SECURITY ORCHESTRATION, AUTOMATION &amp; RESPONSE</div>
+      <div class="wc-desc">
+        SOAR is the <strong style="color:var(--text2)">action engine</strong> that acts on SIEM intelligence. It automates repetitive analyst tasks, orchestrates multi-tool response workflows, and closes incidents with machine speed.
+        <br><br>
+        It answers: <em style="color:var(--soar)">"What do we do about it — automatically?"</em>
+      </div>
+      <div class="wc-features">
+        <div class="feat"><div class="feat-dot"></div><div><strong>Playbook Automation</strong> — Predefined workflows execute on alert trigger</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Tool Orchestration</strong> — API-connect NGFW, EDR, IAM, ticketing systems</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Threat Enrichment</strong> — Auto-query VirusTotal, Shodan, MISP, threat intel</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>Case Management</strong> — Track incidents from detection to closure</div></div>
+        <div class="feat"><div class="feat-dot"></div><div><strong>MTTR Reduction</strong> — Mean time to respond drops from hours to seconds</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW DIAGRAM -->
+<section class="section">
+  <div class="sec-tag">// 02 — How they work together</div>
+  <div class="sec-h">The Attack-to-Response Pipeline</div>
+  <div class="flow-wrap">
+    <div class="flow">
+      <div class="fn">
+        <span class="fn-ico">🖥️</span>
+        <div class="fn-lbl">Data Sources</div>
+        <div class="fn-sub">FW · EDR · AD · Cloud</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fn fns">
+        <span class="fn-ico">📡</span>
+        <div class="fn-lbl">SIEM Ingest</div>
+        <div class="fn-sub">Normalise · Index</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fn fns">
+        <span class="fn-ico">🔗</span>
+        <div class="fn-lbl">SIEM Correlate</div>
+        <div class="fn-sub">Rules · UEBA · ML</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fn">
+        <span class="fn-ico">🚨</span>
+        <div class="fn-lbl">Alert / Incident</div>
+        <div class="fn-sub">Severity · Priority</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fn fno">
+        <span class="fn-ico">⚡</span>
+        <div class="fn-lbl">SOAR Playbook</div>
+        <div class="fn-sub">Trigger · Enrich</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fork">
+        <div class="fn fno" style="min-width:90px">
+          <span class="fn-ico">🤖</span>
+          <div class="fn-lbl" style="font-size:11px">Auto-Contain</div>
+          <div class="fn-sub">Block · Isolate</div>
+        </div>
+        <div class="fn" style="min-width:90px">
+          <span class="fn-ico">🧑‍💻</span>
+          <div class="fn-lbl" style="font-size:11px">Analyst Task</div>
+          <div class="fn-sub">Escalate · Review</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="fn">
+        <span class="fn-ico">✅</span>
+        <div class="fn-lbl">Resolved</div>
+        <div class="fn-sub">Ticket Closed</div>
+      </div>
+    </div>
+    <div class="flow-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--siem)"></div>SIEM Functions</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--soar)"></div>SOAR Functions</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Neutral / Both</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIEM vs SOAR COMPARE -->
+<section class="section">
+  <div class="sec-tag">// 03 — Comparison</div>
+  <div class="sec-h">SIEM vs SOAR — Side by Side</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Aspect</th>
+        <th style="color:var(--siem)">SIEM</th>
+        <th style="color:var(--soar)">SOAR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-aspect">Primary Role</td>
+        <td class="td-siem">Detect &amp; Correlate threats from log data</td>
+        <td class="td-soar">Automate &amp; Orchestrate response actions</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Core Input</td>
+        <td class="td-siem">Logs, events, network flows, cloud telemetry</td>
+        <td class="td-soar">SIEM alerts, threat intel, analyst triggers</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Core Output</td>
+        <td class="td-siem">Dashboards, alerts, compliance reports</td>
+        <td class="td-soar">Automated actions, cases, enriched tickets</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Speed</td>
+        <td class="td-siem">Near real-time detection (seconds-minutes)</td>
+        <td class="td-soar">Machine-speed response (milliseconds-seconds)</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Human Involvement</td>
+        <td class="td-siem">Analyst reviews alerts, tunes correlation rules</td>
+        <td class="td-soar">Analyst approves high-risk actions; rest automated</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Key Strength</td>
+        <td class="td-siem">Visibility across entire enterprise estate</td>
+        <td class="td-soar">Eliminating repetitive manual analyst work</td>
+      </tr>
+      <tr>
+        <td class="td-aspect">Works Best When</td>
+        <td class="td-siem">Centralising disparate log sources for detection</td>
+        <td class="td-soar">Responding to high-volume, repetitive alert types</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- REAL-WORLD EXAMPLES -->
+<section class="section">
+  <div class="sec-tag">// 04 — Real-world examples</div>
+  <div class="sec-h">Threat Scenarios in Action</div>
+
+  <div class="tab-bar">
+    <button class="tb on" onclick="tab(this,'brute')">🔐 Brute Force</button>
+    <button class="tb" onclick="tab(this,'ransomware')">💀 Ransomware</button>
+    <button class="tb" onclick="tab(this,'insider')">🕵️ Insider Threat</button>
+    <button class="tb" onclick="tab(this,'phishing')">🎣 Phishing / BEC</button>
+    <button class="tb" onclick="tab(this,'cloud')">☁️ Cloud Misconfig</button>
+  </div>
+
+  <!-- BRUTE FORCE -->
+  <div class="panel on" id="p-brute">
+    <div class="ex-card">
+      <div class="ex-hdr">
+        <span class="ex-ico">🔐</span>
+        <div class="ex-htxt">
+          <div class="ex-title">Brute Force / Credential Stuffing Attack</div>
+          <div class="ex-sub">Target: Azure AD, VPN Gateway, OWA — Common enterprise entry points</div>
+        </div>
+        <span class="ex-tag tag-b">SIEM + SOAR</span>
+      </div>
+      <div class="ex-body">
+        <div class="scenario">
+          <strong style="color:var(--white)">Scenario:</strong> An attacker uses a credential dump from a dark web forum and launches 5,000 login attempts against your organisation's Azure AD / Okta tenant and VPN gateway in under 10 minutes. On attempt 4,987, they succeed with a valid credential.
+        </div>
+        <div class="steps-lbl">// SIEM Detection + SOAR Response Workflow</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>Log Ingestion:</strong> Azure AD sign-in logs, Palo Alto GlobalProtect VPN logs, and Okta event stream are ingested into Microsoft Sentinel or Splunk in real time.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>Correlation Rule Fires:</strong> Rule triggers: <em>"&gt;100 failed logins to the same account within 5 minutes from a single IP → High Severity Alert."</em> Alert: Credential Stuffing Detected.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Auto Enrichment:</strong> SOAR (Palo Alto XSOAR / Splunk SOAR) instantly queries VirusTotal, Shodan, and internal threat intel feeds on the source IP — malicious reputation confirmed.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Automated Containment:</strong> Source IP blocked on Palo Alto NGFW via API call. Azure AD Conditional Access forces step-up MFA on the compromised account. Zscaler ZPA session for the user is terminated.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Ticket & Notify:</strong> ServiceNow incident ticket auto-created with full context attached. SOC analyst receives Slack / Teams alert with one-click Approve / Escalate / False Positive buttons.</div>
+          </div>
+        </div>
+        <div class="outcome">
+          <strong>✅ Result:</strong> Attack detected in &lt;2 min. Containment fully automated in &lt;90 seconds. Analyst reviews a pre-filled closed ticket. Zero manual firewall rule edits or email chains required.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANSOMWARE -->
+  <div class="panel" id="p-ransomware">
+    <div class="ex-card">
+      <div class="ex-hdr">
+        <span class="ex-ico">💀</span>
+        <div class="ex-htxt">
+          <div class="ex-title">Ransomware Lateral Movement</div>
+          <div class="ex-sub">Post-exploitation: encryption spreading across finance VLAN via SMB</div>
+        </div>
+        <span class="ex-tag tag-b">SIEM + SOAR</span>
+      </div>
+      <div class="ex-body">
+        <div class="scenario">
+          <strong style="color:var(--white)">Scenario:</strong> A ransomware binary executes on an endpoint in the finance segment. The malware begins encrypting files, traversing SMB shares, and attempting Pass-the-Hash lateral movement to 47 other hosts on the same VLAN.
+        </div>
+        <div class="steps-lbl">// SIEM Detection + SOAR Response Workflow</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>EDR Correlation:</strong> CrowdStrike / Microsoft Defender for Endpoint logs ingested. SIEM correlates: rapid file rename events + SMB enumeration + LSASS memory access = Ransomware Behaviour Pattern match.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>Network Flow Correlation:</strong> SIEM joins EDR alert with VMware NSX-T east-west traffic logs — confirms anomalous SMB traffic spike from the infected host to 47 peers in the same subnet.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Host Isolation:</strong> SOAR calls CrowdStrike Falcon API — network isolation applied to infected host within 30 seconds. NSX-T micro-segmentation quarantine tag applied automatically, cutting all lateral traffic.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Forensics Preservation:</strong> Azure VM snapshot taken for forensic imaging. Ransomware binary hash submitted to VirusTotal and internal sandbox (Any.run / Cuckoo). IOCs extracted and pushed to threat intel platform.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Incident War Room:</strong> PagerDuty critical alert fires. Dedicated Slack incident channel auto-created with all enriched context, runbook link, and IR team tagged automatically.</div>
+          </div>
+        </div>
+        <div class="outcome">
+          <strong>✅ Result:</strong> Blast radius contained to 1 host. Lateral movement to 47 peers stopped. MTTR reduced from 2–4 hours of manual response to ~4 minutes of automated containment.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIDER THREAT -->
+  <div class="panel" id="p-insider">
+    <div class="ex-card">
+      <div class="ex-hdr">
+        <span class="ex-ico">🕵️</span>
+        <div class="ex-htxt">
+          <div class="ex-title">Insider Threat — Data Exfiltration</div>
+          <div class="ex-sub">Departing employee exfiltrating patient records to personal cloud storage</div>
+        </div>
+        <span class="ex-tag tag-s">SIEM Heavy</span>
+      </div>
+      <div class="ex-body">
+        <div class="scenario">
+          <strong style="color:var(--white)">Scenario:</strong> A healthcare employee on the HR termination list begins downloading 4.2 GB of ePHI patient records from a restricted SharePoint library at 11 PM Friday night, then uploads them to a personal Dropbox account — behaviour completely outside their normal baseline.
+        </div>
+        <div class="steps-lbl">// SIEM Detection + SOAR Response Workflow</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>UEBA Behavioural Baseline:</strong> Microsoft Sentinel / Exabeam UEBA flags: login outside normal hours + 4.2 GB outbound to Dropbox via ZIA proxy + access to 3 restricted ePHI folders = Risk Score 97/100. Critical alert fired.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>DLP + Identity Correlation:</strong> Zscaler ZIA DLP alert (PHI data pattern match) correlated with Active Directory HR attribute — SIEM confirms user is on the active termination list, elevating severity to Critical.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Guardrailed Account Disable:</strong> SOAR playbook queries HRMS API to confirm termination status as a guardrail before acting. Confirmed → Zscaler ZPA session revoked, Azure AD account disabled, Microsoft 365 session tokens invalidated.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Evidence & Compliance:</strong> Full session logs, ZIA DLP capture, and SharePoint audit logs exported to immutable Azure Blob storage. Legal team and HIPAA Compliance Officer auto-notified per Breach Notification playbook with 60-day breach clock started.</div>
+          </div>
+        </div>
+        <div class="outcome">
+          <strong>✅ Result:</strong> Potential HIPAA breach detected and stopped in under 5 minutes at 11 PM with zero analyst on-call involvement. Full evidence chain preserved for legal action. Compliance SLA met automatically.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHISHING -->
+  <div class="panel" id="p-phishing">
+    <div class="ex-card">
+      <div class="ex-hdr">
+        <span class="ex-ico">🎣</span>
+        <div class="ex-htxt">
+          <div class="ex-title">Phishing Campaign → Business Email Compromise</div>
+          <div class="ex-sub">Spear-phishing with malicious macro targeting finance team → C2 callback</div>
+        </div>
+        <span class="ex-tag tag-o">SOAR Heavy</span>
+      </div>
+      <div class="ex-body">
+        <div class="scenario">
+          <strong style="color:var(--white)">Scenario:</strong> A spear-phishing email with a weaponised Excel macro is delivered to 14 finance team members. Three open it. One executes the macro which establishes an HTTPS-based C2 channel to a command-and-control server in Eastern Europe.
+        </div>
+        <div class="steps-lbl">// SIEM Detection + SOAR Response Workflow</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>Email Security Correlation:</strong> Microsoft Defender for O365 / Proofpoint alert ingested. SIEM correlates delivery across 14 mailboxes — same sender hash, same attachment SHA256, same X-Originating-IP. Campaign identified.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Mass Email Retraction:</strong> SOAR playbook calls Microsoft Graph API — offending email purged from all 14 inboxes, Deleted Items, and Sent folders in under 60 seconds. No user awareness required.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>IOC Propagation:</strong> Sender domain, sending IP, and attachment hash automatically pushed to Palo Alto NGFW External Dynamic List (EDL), Zscaler ZIA block list, and Fortinet FortiGuard threat intel within 3 minutes.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>C2 Beaconing Detected:</strong> SIEM detects periodic HTTPS beaconing (every 30s) from the machine that executed the macro to a newly-registered domain. High-severity incident auto-created — SOAR playbook triggered again for host isolation.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>User Outreach & EDR Scan:</strong> Automated phishing awareness email sent to the 3 openers. All 14 recipients' machines queued for CrowdStrike deep EDR scan. Results auto-attached to incident ticket.</div>
+          </div>
+        </div>
+        <div class="outcome">
+          <strong>✅ Result:</strong> Campaign contained org-wide in &lt;5 minutes. 11 users never saw the email. C2 channel blocked before any data exfiltration. Full IOC intel shared across all security controls simultaneously.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOUD MISCONFIG -->
+  <div class="panel" id="p-cloud">
+    <div class="ex-card">
+      <div class="ex-hdr">
+        <span class="ex-ico">☁️</span>
+        <div class="ex-htxt">
+          <div class="ex-title">Cloud Misconfiguration — Public S3 Bucket Exposure</div>
+          <div class="ex-sub">AWS S3 bucket with PII made publicly accessible by developer misconfiguration</div>
+        </div>
+        <span class="ex-tag tag-b">SIEM + SOAR</span>
+      </div>
+      <div class="ex-body">
+        <div class="scenario">
+          <strong style="color:var(--white)">Scenario:</strong> A developer accidentally disables Block Public Access on an S3 bucket holding 80,000 customer records. Within 8 minutes, an automated cloud scanner begins enumerating and downloading data from the exposed bucket.
+        </div>
+        <div class="steps-lbl">// SIEM Detection + SOAR Response Workflow</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>CloudTrail + CSPM Correlation:</strong> AWS CloudTrail log ingested into Splunk / Sentinel. SIEM correlates: PutBucketPublicAccessBlock API with BlockPublicPolicy=false + subsequent GetObject calls from external IPs = Critical Cloud Exposure alert.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-s">SIEM</span>
+            <div class="step-body"><strong>Unusual Access Volume:</strong> SIEM detects 1,400 GetObject API calls in 6 minutes from a non-corporate IP range — data exfiltration in progress. Alert escalated to Critical.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Automated Remediation:</strong> SOAR calls AWS Boto3 SDK via Lambda — Block Public Access re-enabled on the S3 bucket within 45 seconds. Bucket ACL reset to private. External access cut immediately.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Scope Assessment:</strong> SOAR enumerates all objects accessed by the external IP from CloudTrail logs — 1,247 records confirmed exposed. CloudWatch alarm set for any future public access changes on production buckets.</div>
+          </div>
+          <div class="step">
+            <span class="step-tag st-o">SOAR</span>
+            <div class="step-body"><strong>Compliance Breach Workflow:</strong> GDPR 72-hour notification clock triggered automatically. DPO, Legal, and Engineering leads notified with full impact report. Jira ticket created for developer remediation and post-incident review.</div>
+          </div>
+        </div>
+        <div class="outcome">
+          <strong>✅ Result:</strong> Exposure window: 8 minutes. Automated fix applied in 45 seconds after detection. Breach scope determined without manual log review. GDPR compliance workflow initiated automatically.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR TOOLS -->
+<section class="section">
+  <div class="sec-tag">// 05 — Market tools</div>
+  <div class="sec-h">Leading SIEM & SOAR Platforms</div>
+  <div class="tools-grid">
+    <div class="tools-card">
+      <div class="tools-hdr sh">📡 Popular SIEM Platforms</div>
+      <div class="tool-row">
+        <span class="tool-ico">🔵</span>
+        <div><div class="tool-name">Microsoft Sentinel</div><div class="tool-note">Cloud-native SIEM/SOAR · Azure-integrated · UEBA built-in</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🟩</span>
+        <div><div class="tool-name">Splunk Enterprise Security</div><div class="tool-note">Industry standard · Powerful SPL query language · Large ecosystem</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🟠</span>
+        <div><div class="tool-name">IBM QRadar</div><div class="tool-note">Enterprise SIEM · Network flow analytics · AI-assisted triage</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🦅</span>
+        <div><div class="tool-name">Elastic SIEM</div><div class="tool-note">Open-source foundation · MITRE ATT&CK mapped · Cost-effective</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🔷</span>
+        <div><div class="tool-name">LogRhythm / Exabeam</div><div class="tool-note">Strong UEBA · Behavioural analytics · MSSPs' favourite</div></div>
+      </div>
+    </div>
+    <div class="tools-card">
+      <div class="tools-hdr oh">⚡ Popular SOAR Platforms</div>
+      <div class="tool-row">
+        <span class="tool-ico">🔴</span>
+        <div><div class="tool-name">Palo Alto XSOAR</div><div class="tool-note">Market leader · 700+ integrations · Visual playbook builder</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🟩</span>
+        <div><div class="tool-name">Splunk SOAR (Phantom)</div><div class="tool-note">Deep Splunk ES integration · Python playbooks · Broad connectors</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🔵</span>
+        <div><div class="tool-name">Microsoft Sentinel (built-in)</div><div class="tool-note">Logic Apps-powered · Native Azure integration · No extra licensing</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🟣</span>
+        <div><div class="tool-name">Google Chronicle SOAR</div><div class="tool-note">Cloud-scale · Sub-second IOC matching · YARA-L detection</div></div>
+      </div>
+      <div class="tool-row">
+        <span class="tool-ico">🦉</span>
+        <div><div class="tool-name">TheHive + Cortex</div><div class="tool-note">Open-source SOAR · MISP integration · SOC team favourite</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <span style="color:var(--siem)">SIEM</span>
+    <span style="color:var(--muted)"> + </span>
+    <span style="color:var(--soar)">SOAR</span>
+    <span style="color:var(--muted)"> — Modern SOC Architecture Reference Guide</span>
+  </div>
+</footer>
+
+<script>
+function tab(btn, id) {
+  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('p-' + id).classList.add('on');
+}
+</script>
+</body>
+</html>
